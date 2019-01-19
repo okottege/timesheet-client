@@ -11,16 +11,19 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/app/jest.setup.js",
-    "testPathIgnorePatterns": ["<rootDir>/app/jest.setup/js"]
+    "testPathIgnorePatterns": [
+      "<rootDir>/app/jest.setup/js"
+    ]
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "webpack-dev-server --open"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
