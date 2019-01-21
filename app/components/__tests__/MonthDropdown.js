@@ -35,4 +35,14 @@ describe('MonthDropdown functionality', () => {
       expect(selectList.childAt(index).prop('value')).toBe(index);
     });
   });
+
+  test('Render no option selected when selected month is NOT supplied', () => {
+    const monthDropdown = shallow(<MonthDropdown/>);
+    expect(monthDropdown.find('select').prop('value')).toBe(undefined);
+  });
+
+  test('Render the selected month correctly when selected month is supplied', () => {
+    const monthDropdown = shallow(<MonthDropdown selectedMonth='5'/>);
+    expect(monthDropdown.find('select').prop('value')).toEqual('5');
+  });
 });

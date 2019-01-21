@@ -29,7 +29,7 @@ class MonthDropdown extends React.Component {
   render() {
     return (
       <div>
-        <select>
+        <select value={this.props.selectedMonth}>
           {this.renderMonths()}
         </select>
       </div>
