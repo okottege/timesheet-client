@@ -38,7 +38,8 @@ class MonthDropdown extends React.Component {
 }
 
 MonthDropdown.propTypes = {
-  selectedMonth: PropTypes.number
+  selectedMonth: PropTypes.number,
+  onMonthSelected: PropTypes.func
 };
 
 export default MonthDropdown;

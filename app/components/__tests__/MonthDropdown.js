@@ -42,7 +42,7 @@ describe('MonthDropdown functionality', () => {
   });
 
   test('Render the selected month correctly when selected month is supplied', () => {
-    const monthDropdown = shallow(<MonthDropdown selectedMonth='5'/>);
-    expect(monthDropdown.find('select').prop('value')).toEqual('5');
+    const monthDropdown = shallow(<MonthDropdown selectedMonth={5}/>);
+    expect(monthDropdown.find('select').prop('value')).toEqual(5);
   });
 });
