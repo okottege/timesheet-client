@@ -17,7 +17,7 @@ class DateOfTheMonthDropdown extends React.Component {
   render() {
     return (
       <div>
-        <select>
+        <select value={this.props.selectedDate}>
           {this.renderDatesForMonth(this.props.monthIndex)}
         </select>
       </div>

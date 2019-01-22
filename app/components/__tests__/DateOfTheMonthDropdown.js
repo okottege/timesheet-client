@@ -38,4 +38,8 @@ describe('DateOfTheMonthDropdown component should', () => {
       expect(dateDropdown.find('option').length).toBe(expectedDays);
     });
   });
+  test('display the selected date of the month correctly', () => {
+    const dateDropdown = shallow(<DateDropdown monthIndex={0} year={2012} selectedDate={20}/>);
+    expect(dateDropdown.find('select').prop('value')).toBe(20);
+  });
 });
