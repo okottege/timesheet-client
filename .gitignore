@@ -4,3 +4,4 @@ dist/
 
 # Editor directories
 .idea
+coverage/

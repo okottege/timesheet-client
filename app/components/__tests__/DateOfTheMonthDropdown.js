@@ -8,14 +8,34 @@ describe('DateOfTheMonthDropdown component should', () => {
     const dateDropdown = shallow(<DateDropdown monthIndex={2} year={2019}/>);
     expect(dateDropdown.find('select').length).toBe(1);
   });
-  describe('render the dates for months correctly', () => {
+  describe('render the dates for months for a year (2018) correctly', () => {
     test.each([
-      [0, 31],
-      [1, 28],
-      [2, 31]
-    ])('number of days for month: $monthIndex should be $expectedNumDays', (monthIndex, expectedNumDays) => {
+      [0, 31], // January
+      [1, 28], // February
+      [2, 31], // March
+      [3, 30], // April
+      [4, 31], // May
+      [5, 30], // June
+      [6, 31], // July
+      [7, 31], // August
+      [8, 30], // September
+      [9, 31], // October
+      [10, 30], // November
+      [11, 31], // December
+    ])('number of days for month at index %i should be %i', (monthIndex, expectedNumDays) => {
       const dateDropdown = shallow(<DateDropdown monthIndex={monthIndex} year={2018}/>);
       expect(dateDropdown.find('select').children().length).toBe(expectedNumDays);
+    });
+  });
+  describe("render the dates for February correctly", () => {
+    test.each([
+      [2012, 29],
+      [2006, 28],
+      [2000, 29],
+      [1990, 28],
+    ])('for year %i expect %i days in February', (year, expectedDays) => {
+      const dateDropdown = shallow(<DateDropdown monthIndex={1} year={year}/>);
+      expect(dateDropdown.find('option').length).toBe(expectedDays);
     });
   });
 });

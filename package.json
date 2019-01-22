@@ -17,6 +17,7 @@
   },
   "scripts": {
     "test": "jest --verbose",
+    "test:coverage": "jest --coverage",
     "start": "webpack-dev-server --open"
   },
   "keywords": [],
