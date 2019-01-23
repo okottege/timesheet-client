@@ -8,6 +8,7 @@ describe('DateOfTheMonthDropdown component should', () => {
     const dateDropdown = shallow(<DateDropdown monthIndex={2} year={2019}/>);
     expect(dateDropdown.find('select').length).toBe(1);
   });
+
   describe('render the dates for months for a year (2018) correctly', () => {
     test.each([
       [0, 31], // January
@@ -27,6 +28,7 @@ describe('DateOfTheMonthDropdown component should', () => {
       expect(dateDropdown.find('select').children().length).toBe(expectedNumDays);
     });
   });
+
   describe("render the dates for February correctly", () => {
     test.each([
       [2012, 29],
@@ -38,8 +40,25 @@ describe('DateOfTheMonthDropdown component should', () => {
       expect(dateDropdown.find('option').length).toBe(expectedDays);
     });
   });
+
   test('display the selected date of the month correctly', () => {
     const dateDropdown = shallow(<DateDropdown monthIndex={0} year={2012} selectedDate={20}/>);
     expect(dateDropdown.find('select').prop('value')).toBe(20);
+  });
+
+  test('invoke onSelectedDate handler upon date selection with selected date', () => {
+    const dateToSelect = 2;
+    const onChange = jest.fn();
+    const dateDropdown = shallow(<DateDropdown monthIndex={1} year={2018} onSelectedDate={onChange}/>);
+
+    dateDropdown.find('select').simulate('change', {target: {value: dateToSelect}});
+
+    expect(onChange).toHaveBeenCalledWith(dateToSelect);
+  });
+
+  test('not try to invoke onSelectedDate handler if its not supplied', () => {
+    const dateDropdown = shallow(<DateDropdown monthIndex={1} year={2018} />);
+    dateDropdown.find('select').simulate('change', {target: {value: 10}});
+    expect(dateDropdown.length).toBe(1);
   });
 });
