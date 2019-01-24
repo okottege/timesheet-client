@@ -2,6 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class YearDropdown extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onYearSelected = this.onYearSelected.bind(this);
+  }
+
+  onYearSelected(e) {
+    this.props.onYearSelected(e.target.value);
+  }
+
   renderOptions(startYear, numYears) {
     const years = Array.from({length: numYears},(v, i) => i + startYear).reverse();
     return years.map(year => (
@@ -12,7 +21,7 @@ class YearDropdown extends React.Component {
   render () {
     return (
       <div>
-        <select>
+        <select value={this.props.selectedYear} onChange={this.onYearSelected}>
           {this.renderOptions(this.props.startYear, this.props.numYears)}
         </select>
       </div>

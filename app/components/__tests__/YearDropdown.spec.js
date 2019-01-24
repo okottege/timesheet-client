@@ -24,4 +24,16 @@ describe('YearDropdown component should', () => {
       const yearDropDown = shallow(<YearDropdown startYear={2015} numYears={5}/>);
       expect(yearDropDown.find('select').childAt(yearItemIndex).prop('value')).toBe(expectedYear);
   });
+
+  test('selected year is rendered correctly', () => {
+    const yearDropdown = shallow(<YearDropdown startYear={2000} numYears={5} selectedYear={2004}/>);
+    expect(yearDropdown.find('select').prop('value')).toBe(2004);
+  });
+
+  test('triggers onYearSelected with the correct year when an Year is selected', () => {
+    const onYearSelected = jest.fn();
+    const yearDropdown = shallow(<YearDropdown startYear={2000} numYears={10} onYearSelected={onYearSelected}/>);
+    yearDropdown.find('select').simulate('change', {target: {value: 2005}});
+    expect(onYearSelected).toHaveBeenCalledWith(2005);
+  });
 });
