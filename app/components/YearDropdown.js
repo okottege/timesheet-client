@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 class YearDropdown extends React.Component {
   renderOptions(startYear, numYears) {
-    const years = Array.from({length: numYears},(v, i) => i + startYear);
+    const years = Array.from({length: numYears},(v, i) => i + startYear).reverse();
     return years.map(year => (
-      <option value={year}>y</option>
+      <option key={year} value={year}>y</option>
     ))
   };
 
