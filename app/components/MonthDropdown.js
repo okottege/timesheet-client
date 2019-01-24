@@ -19,17 +19,24 @@ class MonthDropdown extends React.Component {
         {name: 'November', value: 10},
         {name: 'December', value: 11},
       ]
-    }
+    };
+
+    this.onMonthSelected = this.onMonthSelected.bind(this);
   }
   renderMonths() {
     return this.state.months.map(m => (
       <option key={m.value} value={m.value}>{m.name}</option>
     ));
   }
+
+  onMonthSelected(e) {
+    if(this.props.onMonthSelected) this.props.onMonthSelected(e.target.value);
+  }
+
   render() {
     return (
       <div>
-        <select value={this.props.selectedMonth}>
+        <select value={this.props.selectedMonth} onChange={this.onMonthSelected}>
           {this.renderMonths()}
         </select>
       </div>

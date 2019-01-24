@@ -45,4 +45,18 @@ describe('MonthDropdown functionality', () => {
     const monthDropdown = shallow(<MonthDropdown selectedMonth={5}/>);
     expect(monthDropdown.find('select').prop('value')).toEqual(5);
   });
+
+  test('invoke onMonthSelected when an item is selected from the list', () => {
+    const onMonthSelected = jest.fn();
+    const monthDropdown = shallow(<MonthDropdown onMonthSelected={onMonthSelected}/>);
+    monthDropdown.find('select').simulate('change', {target: {value: 2}});
+
+    expect(onMonthSelected).toHaveBeenCalledWith(2);
+  });
+
+  test('invoke onMonthSelected ONLY when a handler is supplied', () => {
+    const monthDropdown = shallow(<MonthDropdown />);
+    monthDropdown.find('select').simulate('change', {target: {value: 2}});
+    expect(monthDropdown.length).toBe(1);
+  });
 });
