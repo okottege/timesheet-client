@@ -47,16 +47,15 @@ describe('DateDropdown component should', () => {
   });
 
   test('invoke onSelectedDate handler upon date selection with selected date', () => {
-    const dateToSelect = 2;
     const onChange = jest.fn();
-    const dateDropdown = shallow(<DateDropdown monthIndex={1} year={2018} onSelectedDate={onChange}/>);
+    const dateDropdown = shallow(<DateDropdown monthIndex={1} year={2018} onDateSelected={onChange}/>);
 
-    dateDropdown.find('select').simulate('change', {target: {value: dateToSelect}});
+    dateDropdown.find('select').simulate('change', {target: {value: 2}});
 
-    expect(onChange).toHaveBeenCalledWith(dateToSelect);
+    expect(onChange).toHaveBeenCalledWith(2);
   });
 
-  test('not try to invoke onSelectedDate handler if its not supplied', () => {
+  test('not try to invoke onDateSelected handler if its not supplied', () => {
     const dateDropdown = shallow(<DateDropdown monthIndex={1} year={2018} />);
     dateDropdown.find('select').simulate('change', {target: {value: 10}});
     expect(dateDropdown.length).toBe(1);

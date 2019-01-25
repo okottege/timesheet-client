@@ -5,7 +5,7 @@ class DateDropdown extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onSelectedDate = this.onSelectedDate.bind(this);
+    this.onDateSelected = this.onDateSelected.bind(this);
   }
 
   renderDatesForMonth(month) {
@@ -20,14 +20,14 @@ class DateDropdown extends React.Component {
     ));
   }
 
-  onSelectedDate(e) {
-    if(this.props.onSelectedDate) this.props.onSelectedDate(e.target.value);
+  onDateSelected(e) {
+    if(this.props.onDateSelected) this.props.onDateSelected(e.target.value);
   }
 
   render() {
     return (
       <div>
-        <select value={this.props.selectedDate} onChange={this.onSelectedDate}>
+        <select value={this.props.selectedDate} onChange={this.onDateSelected}>
           {this.renderDatesForMonth(this.props.monthIndex)}
         </select>
       </div>
@@ -39,7 +39,7 @@ DateDropdown.propTypes = {
   monthIndex: PropTypes.number.isRequired,
   year: PropTypes.number.isRequired,
   selectedDate: PropTypes.number,
-  onSelectedDate: PropTypes.func
+  onDateSelected: PropTypes.func
 };
 
 export default DateDropdown;
