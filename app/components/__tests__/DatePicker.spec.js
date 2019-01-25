@@ -37,19 +37,14 @@ describe('DatePicker should', () => {
   });
 
   describe('render selected date correctly', () => {
-    test('render current date as default when NO selectedDate is supplied', () => {
-      const currentDate = new Date();
-      const datePicker = shallow(<DatePicker onDateSelected={jest.fn()}/>);
-      expect(datePicker.find(DateDropdown).prop('selectedDate')).toBe(currentDate.getDate());
-      expect(datePicker.find(MonthDropdown).prop('selectedMonth')).toBe(currentDate.getMonth());
-      expect(datePicker.find(YearDropdown).prop('selectedYear')).toBe(currentDate.getFullYear());
-    });
-    test('render the selectedDate when its supplied', () => {
-      const date = new Date(2012, 1, 27);
-      const datePicker = shallow(<DatePicker selectedDate={date} onDateSelected={jest.fn()}/>);
-      expect(datePicker.find(DateDropdown).prop('selectedDate')).toBe(27);
-      expect(datePicker.find(MonthDropdown).prop('selectedMonth')).toBe(1);
-      expect(datePicker.find(YearDropdown).prop('selectedYear')).toBe(2012);
+    test.each([
+      [undefined, new Date()],
+      [new Date(2012, 1, 27), new Date(2012, 1, 27)]
+    ])("render selected date's components correctly when selected date is %p", (selectedDate, expectedSelectedDate) => {
+      const datePicker = shallow(<DatePicker selectedDate={selectedDate} onDateSelected={jest.fn()}/>);
+      expect(datePicker.find(DateDropdown).prop('selectedDate')).toBe(expectedSelectedDate.getDate());
+      expect(datePicker.find(MonthDropdown).prop('selectedMonth')).toBe(expectedSelectedDate.getMonth());
+      expect(datePicker.find(YearDropdown).prop('selectedYear')).toBe(expectedSelectedDate.getFullYear());
     });
   });
 
