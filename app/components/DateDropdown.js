@@ -2,33 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class DateDropdown extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.onDateSelected = this.onDateSelected.bind(this);
-  }
-
-  renderDatesForMonth(month) {
+  renderDatesForMonth = () => {
     const date = new Date(this.props.year, this.props.monthIndex + 1, 0);
-    return DateDropdown.renderDateOptions(date.getDate());
-  }
+    return this.renderDateOptions(date.getDate());
+  };
 
-  static renderDateOptions(numDays) {
+  renderDateOptions = numDays => {
     const dates = Array.from({length: numDays}, (v, k) => k+1);
     return dates.map(date => (
       <option key={date} value={date}>d</option>
     ));
-  }
+  };
 
-  onDateSelected(e) {
+  onDateSelected = e => {
     if(this.props.onDateSelected) this.props.onDateSelected(e.target.value);
-  }
+  };
 
   render() {
     return (
       <div>
         <select value={this.props.selectedDate} onChange={this.onDateSelected}>
-          {this.renderDatesForMonth(this.props.monthIndex)}
+          {this.renderDatesForMonth()}
         </select>
       </div>
     );

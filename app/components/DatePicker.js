@@ -23,13 +23,11 @@ class DatePicker extends React.Component {
     }
   };
 
-  hasTitle = () => !!this.props.title;
-
   render() {
     const selectedDate = this.getSelectedDate();
     return (
       <div>
-        {this.hasTitle() &&
+        {!!this.props.title &&
           <span>{this.props.title}</span>
         }
         <DateDropdown
