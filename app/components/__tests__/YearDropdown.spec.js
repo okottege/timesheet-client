@@ -36,4 +36,10 @@ describe('YearDropdown component should', () => {
     yearDropdown.find('select').simulate('change', {target: {value: 2005}});
     expect(onYearSelected).toHaveBeenCalledWith(2005);
   });
+
+  test('NOT trigger onYearSelected when the event handler is not supplied', () => {
+    const yearDropdown = shallow(<YearDropdown startYear={2000} numYears={20}/>);
+    yearDropdown.find('select').simulate('change', {target: {value: 2005}});
+    expect(yearDropdown.length).toBe(1);
+  });
 });

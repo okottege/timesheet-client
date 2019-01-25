@@ -8,7 +8,7 @@ class YearDropdown extends React.Component {
   }
 
   onYearSelected(e) {
-    this.props.onYearSelected(e.target.value);
+    if(this.props.onYearSelected) this.props.onYearSelected(e.target.value);
   }
 
   renderOptions(startYear, numYears) {
