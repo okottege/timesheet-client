@@ -1,9 +1,9 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 
-import DateDropdown from '../DateOfTheMonthDropdown';
+import DateDropdown from '../DateDropdown';
 
-describe('DateOfTheMonthDropdown component should', () => {
+describe('DateDropdown component should', () => {
   test('render correctly', () => {
     const dateDropdown = shallow(<DateDropdown monthIndex={2} year={2019}/>);
     expect(dateDropdown.find('select').length).toBe(1);

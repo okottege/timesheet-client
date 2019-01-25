@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class DateOfTheMonthDropdown extends React.Component {
+class DateDropdown extends React.Component {
   constructor(props) {
     super(props);
 
@@ -10,7 +10,7 @@ class DateOfTheMonthDropdown extends React.Component {
 
   renderDatesForMonth(month) {
     const date = new Date(this.props.year, this.props.monthIndex + 1, 0);
-    return DateOfTheMonthDropdown.renderDateOptions(date.getDate());
+    return DateDropdown.renderDateOptions(date.getDate());
   }
 
   static renderDateOptions(numDays) {
@@ -35,11 +35,11 @@ class DateOfTheMonthDropdown extends React.Component {
   }
 }
 
-DateOfTheMonthDropdown.propTypes = {
+DateDropdown.propTypes = {
   monthIndex: PropTypes.number.isRequired,
   year: PropTypes.number.isRequired,
   selectedDate: PropTypes.number,
   onSelectedDate: PropTypes.func
 };
 
-export default DateOfTheMonthDropdown;
+export default DateDropdown;
