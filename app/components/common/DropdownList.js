@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 import {DropdownButton, MenuItem} from "react-bootstrap";
 
 class DropdownList extends React.Component {
+  renderItems = items => items.map(i => (
+      <MenuItem key={i.value} eventKey={i.value}>
+        {i.name}
+      </MenuItem>
+    ));
+
   render() {
     return (
       <div>
-        <DropdownButton>
-          <MenuItem/>
+        <DropdownButton title={this.props.selectedItem}>
+          {this.props.items && this.renderItems(this.props.items)}
         </DropdownButton>
       </div>
     );
@@ -15,10 +21,16 @@ class DropdownList extends React.Component {
 }
 
 DropdownList.propTypes = {
-  items: PropTypes.shape({
+  selectedItem: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
     value: PropTypes.string
-  })
+  })),
+  onItemSelected: PropTypes.func
+};
+
+DropdownList.defaultProps = {
+  selectedItem: 'Select...'
 };
 
 export default DropdownList;
