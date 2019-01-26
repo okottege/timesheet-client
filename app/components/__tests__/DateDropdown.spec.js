@@ -25,7 +25,12 @@ describe('DateDropdown component should', () => {
       [11, 31], // December
     ])('number of days for month at index %i should be %i', (monthIndex, expectedNumDays) => {
       const dateDropdown = shallow(<DateDropdown monthIndex={monthIndex} year={2018}/>);
-      expect(dateDropdown.find('select').children().length).toBe(expectedNumDays);
+      const dateOptions = dateDropdown.find('option');
+
+      expect(dateOptions.length).toBe(expectedNumDays);
+      dateOptions.forEach((date, i) => {
+        expect(date.text()).toBe((i + 1).toString());
+      })
     });
   });
 

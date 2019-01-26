@@ -22,7 +22,10 @@ describe('YearDropdown component should', () => {
       [4, 2015],
     ])('render the years in order: at %i index, year %i', (yearItemIndex, expectedYear) => {
       const yearDropDown = shallow(<YearDropdown startYear={2015} numYears={5}/>);
-      expect(yearDropDown.find('select').childAt(yearItemIndex).prop('value')).toBe(expectedYear);
+      const yearOption = yearDropDown.find('select').childAt(yearItemIndex);
+
+      expect(yearOption.prop('value')).toBe(expectedYear);
+      expect(yearOption.text()).toBe(expectedYear.toString());
   });
 
   test('selected year is rendered correctly', () => {

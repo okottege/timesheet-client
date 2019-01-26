@@ -9,7 +9,7 @@ class YearDropdown extends React.Component {
   renderYears = (startYear, numYears) => {
     const years = Array.from({length: numYears},(v, i) => i + startYear).reverse();
     return years.map(year => (
-      <option key={year} value={year}>y</option>
+      <option key={year} value={year}>{year}</option>
     ))
   };
 

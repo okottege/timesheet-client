@@ -10,7 +10,7 @@ class DateDropdown extends React.Component {
   renderDateOptions = numDays => {
     const dates = Array.from({length: numDays}, (v, k) => k+1);
     return dates.map(date => (
-      <option key={date} value={date}>d</option>
+      <option key={date} value={date}>{date}</option>
     ));
   };
 
