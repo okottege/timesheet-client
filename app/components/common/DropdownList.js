@@ -4,10 +4,14 @@ import {DropdownButton, MenuItem} from "react-bootstrap";
 
 class DropdownList extends React.Component {
   renderItems = items => items.map(i => (
-      <MenuItem key={i.value} eventKey={i.value}>
+      <MenuItem key={i.value} eventKey={i.value} onSelect={this.onItemSelected}>
         {i.name}
       </MenuItem>
     ));
+
+  onItemSelected = eventKey => {
+    this.props.onItemSelected(eventKey);
+  };
 
   render() {
     return (
