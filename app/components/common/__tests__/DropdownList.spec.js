@@ -32,11 +32,16 @@ describe('DropdownList component should', () =>{
 
   test('onItemSelected handler is invoked with correct arguments', () => {
     const onItemSelected = jest.fn();
-    const dropDownList = shallow(
-        <DropdownList items={items} onItemSelected={onItemSelected} onSelect={onItemSelected}/>
-      );
+    const dropDownList = shallow(<DropdownList items={items} onItemSelected={onItemSelected} />);
     dropDownList.find(MenuItem).at(1).prop('onSelect')('1');
 
     expect(onItemSelected).toHaveBeenCalledWith('1');
+  });
+
+  test('onItemSelected handler is NOT invoked when no handler is supplied', () => {
+    const onItemSelected = jest.fn();
+    const dropdownList = shallow(<DropdownList items={items}/>);
+    dropdownList.find(MenuItem).at(1).prop('onSelect')('1');
+    expect(onItemSelected).not.toHaveBeenCalled();
   });
 });

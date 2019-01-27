@@ -10,7 +10,7 @@ class DropdownList extends React.Component {
     ));
 
   onItemSelected = eventKey => {
-    this.props.onItemSelected(eventKey);
+    if(this.props.onItemSelected) this.props.onItemSelected(eventKey);
   };
 
   render() {
