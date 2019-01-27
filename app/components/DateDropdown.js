@@ -1,29 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DropdownList from "./common/DropdownList";
 
 class DateDropdown extends React.Component {
-  renderDatesForMonth = () => {
-    const date = new Date(this.props.year, this.props.monthIndex + 1, 0);
-    return this.renderDateOptions(date.getDate());
+  onDateSelected = date => {
+    if(this.props.onDateSelected) this.props.onDateSelected(Number(date));
   };
 
-  renderDateOptions = numDays => {
-    const dates = Array.from({length: numDays}, (v, k) => k+1);
-    return dates.map(date => (
-      <option key={date} value={date}>{date}</option>
-    ));
-  };
-
-  onDateSelected = e => {
-    if(this.props.onDateSelected) this.props.onDateSelected(e.target.value);
+  getDaysForMonth = (year, monthIndex) => {
+    const date = new Date(year, monthIndex + 1, 0);
+    return Array.from({length: date.getDate()}, (v, k) => k+1)
+      .map(d => ({name: d.toString(), value: d.toString()}));
   };
 
   render() {
+    const selectedDate = this.props.selectedDate;
     return (
       <div>
-        <select value={this.props.selectedDate} onChange={this.onDateSelected}>
-          {this.renderDatesForMonth()}
-        </select>
+        <DropdownList
+          items={this.getDaysForMonth(this.props.year, this.props.monthIndex)}
+          selectedItem={selectedDate ? selectedDate.toString() : undefined}
+          onItemSelected={this.onDateSelected}/>
       </div>
     );
   }

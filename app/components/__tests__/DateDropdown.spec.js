@@ -2,11 +2,12 @@ import React from 'react';
 import {shallow} from 'enzyme';
 
 import DateDropdown from '../DateDropdown';
+import DropdownList from '../common/DropdownList';
 
 describe('DateDropdown component should', () => {
   test('render correctly', () => {
     const dateDropdown = shallow(<DateDropdown monthIndex={2} year={2019}/>);
-    expect(dateDropdown.find('select').length).toBe(1);
+    expect(dateDropdown.find(DropdownList).length).toBe(1);
   });
 
   describe('render the dates for months for a year (2018) correctly', () => {
@@ -25,12 +26,9 @@ describe('DateDropdown component should', () => {
       [11, 31], // December
     ])('number of days for month at index %i should be %i', (monthIndex, expectedNumDays) => {
       const dateDropdown = shallow(<DateDropdown monthIndex={monthIndex} year={2018}/>);
-      const dateOptions = dateDropdown.find('option');
+      const dropdownList = dateDropdown.find(DropdownList);
 
-      expect(dateOptions.length).toBe(expectedNumDays);
-      dateOptions.forEach((date, i) => {
-        expect(date.text()).toBe((i + 1).toString());
-      })
+      expect(dropdownList.prop('items').length).toBe(expectedNumDays);
     });
   });
 
@@ -42,27 +40,26 @@ describe('DateDropdown component should', () => {
       [1990, 28],
     ])('for year %i expect %i days in February', (year, expectedDays) => {
       const dateDropdown = shallow(<DateDropdown monthIndex={1} year={year}/>);
-      expect(dateDropdown.find('option').length).toBe(expectedDays);
+      expect(dateDropdown.find(DropdownList).prop('items').length).toBe(expectedDays);
     });
   });
 
   test('display the selected date of the month correctly', () => {
     const dateDropdown = shallow(<DateDropdown monthIndex={0} year={2012} selectedDate={20}/>);
-    expect(dateDropdown.find('select').prop('value')).toBe(20);
+    expect(dateDropdown.find(DropdownList).prop('selectedItem')).toBe('20');
   });
 
   test('invoke onSelectedDate handler upon date selection with selected date', () => {
     const onChange = jest.fn();
     const dateDropdown = shallow(<DateDropdown monthIndex={1} year={2018} onDateSelected={onChange}/>);
-
-    dateDropdown.find('select').simulate('change', {target: {value: 2}});
+    dateDropdown.find(DropdownList).prop('onItemSelected')('2');
 
     expect(onChange).toHaveBeenCalledWith(2);
   });
 
   test('not try to invoke onDateSelected handler if its not supplied', () => {
     const dateDropdown = shallow(<DateDropdown monthIndex={1} year={2018} />);
-    dateDropdown.find('select').simulate('change', {target: {value: 10}});
+    dateDropdown.find(DropdownList).prop('onItemSelected')('10');
     expect(dateDropdown.length).toBe(1);
   });
 });
