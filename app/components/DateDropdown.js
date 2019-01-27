@@ -14,12 +14,15 @@ class DateDropdown extends React.Component {
   };
 
   render() {
-    const selectedDate = this.props.selectedDate;
+    const selectedDate = this.props.selectedDate
+      ? this.props.selectedDate.toString()
+      : undefined;
+
     return (
       <div>
         <DropdownList
           items={this.getDaysForMonth(this.props.year, this.props.monthIndex)}
-          selectedItem={selectedDate ? selectedDate.toString() : undefined}
+          selectedItem={selectedDate}
           onItemSelected={this.onDateSelected}/>
       </div>
     );
