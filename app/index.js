@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Alert} from 'react-bootstrap';
 
-import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import DatePicker from './components/DatePicker';
 

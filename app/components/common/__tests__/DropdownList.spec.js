@@ -8,13 +8,13 @@ describe('DropdownList component should', () =>{
   const items = [{name: 'January', value: "0"}, {name: 'February', value: "1"}, {name: 'March', value: "2"}];
 
   test('render the top level components correctly', () => {
-    const dropdownList = shallow(<DropdownList/>);
+    const dropdownList = shallow(<DropdownList id="ddl"/>);
     expect(dropdownList.find(DropdownButton).exists()).toEqual(true);
     expect(dropdownList.find(DropdownButton).prop('title')).toEqual('Select...');
   });
 
   test('render the supplied items correctly', () => {
-    const dropDownList = shallow(<DropdownList items={items}/>);
+    const dropDownList = shallow(<DropdownList id="ddl" items={items}/>);
     const menuItems = dropDownList.find(MenuItem);
 
     expect(menuItems.length).toEqual(items.length);
@@ -26,13 +26,13 @@ describe('DropdownList component should', () =>{
   });
 
   test('use the selectedItem as the title of DropdownButton', () => {
-    const dropdownList = shallow(<DropdownList items={items} selectedItem="1"/>);
+    const dropdownList = shallow(<DropdownList id="ddl" items={items} selectedItem="1"/>);
     expect(dropdownList.find(DropdownButton).prop('title')).toEqual('1');
   });
 
   test('onItemSelected handler is invoked with correct arguments', () => {
     const onItemSelected = jest.fn();
-    const dropDownList = shallow(<DropdownList items={items} onItemSelected={onItemSelected} />);
+    const dropDownList = shallow(<DropdownList id="ddl" items={items} onItemSelected={onItemSelected} />);
     dropDownList.find(MenuItem).at(1).prop('onSelect')('1');
 
     expect(onItemSelected).toHaveBeenCalledWith('1');
@@ -40,7 +40,7 @@ describe('DropdownList component should', () =>{
 
   test('onItemSelected handler is NOT invoked when no handler is supplied', () => {
     const onItemSelected = jest.fn();
-    const dropdownList = shallow(<DropdownList items={items}/>);
+    const dropdownList = shallow(<DropdownList id="ddl" items={items}/>);
     dropdownList.find(MenuItem).at(1).prop('onSelect')('1');
     expect(onItemSelected).not.toHaveBeenCalled();
   });

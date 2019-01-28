@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DropdownButton, MenuItem} from "react-bootstrap";
+import {DropdownButton, ButtonToolbar, MenuItem} from "react-bootstrap";
 
 class DropdownList extends React.Component {
   renderItems = items => items.map(i => (
@@ -16,15 +16,18 @@ class DropdownList extends React.Component {
   render() {
     return (
       <div>
-        <DropdownButton title={this.props.selectedItem}>
-          {this.props.items && this.renderItems(this.props.items)}
-        </DropdownButton>
+        <ButtonToolbar>
+          <DropdownButton id={this.props.id} title={this.props.selectedItem}>
+            {this.props.items && this.renderItems(this.props.items)}
+          </DropdownButton>
+        </ButtonToolbar>
       </div>
     );
   }
 }
 
 DropdownList.propTypes = {
+  id: PropTypes.string.isRequired,
   selectedItem: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
