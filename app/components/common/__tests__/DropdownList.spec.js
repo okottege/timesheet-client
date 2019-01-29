@@ -8,7 +8,7 @@ describe('DropdownList component should', () =>{
   const items = [{name: 'January', value: "0"}, {name: 'February', value: "1"}, {name: 'March', value: "2"}];
 
   describe('render the top level components with:', () => {
-    const dropdownList = shallow(<DropdownList id="ddl"/>);
+    const dropdownList = shallow(<DropdownList items={items} />);
 
     test('a DropdownButton component', () => {
       expect(dropdownList.find(DropdownButton).exists()).toEqual(true);

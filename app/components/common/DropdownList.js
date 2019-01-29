@@ -4,6 +4,8 @@ import randomString from 'randomstring';
 
 import {DropdownButton, ButtonToolbar, MenuItem} from "react-bootstrap";
 
+const DEFAULT_SELECTED_VALUE = 'Select...';
+
 class DropdownList extends React.Component {
   renderItems = items => items.map(i => (
       <MenuItem key={i.value} eventKey={i.value} onSelect={this.onItemSelected}>
@@ -17,6 +19,7 @@ class DropdownList extends React.Component {
 
   getItemNameByValue = (items, selectedItemValue) => {
     if(!items) return undefined;
+    if(selectedItemValue === DEFAULT_SELECTED_VALUE) return selectedItemValue;
 
     const item = items.find(i => i.value === selectedItemValue);
     return item ? item.name : undefined;
@@ -47,7 +50,7 @@ DropdownList.propTypes = {
 
 DropdownList.defaultProps = {
   id: randomString.generate({length: 10, charset: 'alphabetic'}),
-  selectedItem: 'Select...'
+  selectedItem: DEFAULT_SELECTED_VALUE
 };
 
 export default DropdownList;
