@@ -10,7 +10,7 @@ describe('DropdownList component should', () =>{
   describe('render the top level components with:', () => {
     const dropdownList = shallow(<DropdownList id="ddl"/>);
 
-    test('a DropdownButton rendered', () => {
+    test('a DropdownButton component', () => {
       expect(dropdownList.find(DropdownButton).exists()).toEqual(true);
     });
     test("a default title as 'Select...'", () => {
@@ -33,9 +33,9 @@ describe('DropdownList component should', () =>{
     });
   });
 
-  test('use the selectedItem as the title of DropdownButton', () => {
+  test("render the selected item's name as title of DropdownButton", () => {
     const dropdownList = shallow(<DropdownList id="ddl" items={items} selectedItem="1"/>);
-    expect(dropdownList.find(DropdownButton).prop('title')).toEqual('1');
+    expect(dropdownList.find(DropdownButton).prop('title')).toEqual('February');
   });
 
   test('onItemSelected handler is invoked with correct arguments', () => {

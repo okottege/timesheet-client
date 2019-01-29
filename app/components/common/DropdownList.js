@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import randomstring from 'randomstring';
+import randomString from 'randomstring';
 
 import {DropdownButton, ButtonToolbar, MenuItem} from "react-bootstrap";
 
@@ -15,11 +15,18 @@ class DropdownList extends React.Component {
     if(this.props.onItemSelected) this.props.onItemSelected(eventKey);
   };
 
+  getItemNameByValue = (items, selectedItemValue) => {
+    if(!items) return undefined;
+
+    const item = items.find(i => i.value === selectedItemValue);
+    return item ? item.name : undefined;
+  };
+
   render() {
     return (
       <div>
         <ButtonToolbar>
-          <DropdownButton id={this.props.id} title={this.props.selectedItem}>
+          <DropdownButton id={this.props.id} title={this.getItemNameByValue(this.props.items, this.props.selectedItem)}>
             {this.props.items && this.renderItems(this.props.items)}
           </DropdownButton>
         </ButtonToolbar>
@@ -39,7 +46,7 @@ DropdownList.propTypes = {
 };
 
 DropdownList.defaultProps = {
-  id: randomstring.generate({length: 10, charset: 'alphabetic'}),
+  id: randomString.generate({length: 10, charset: 'alphabetic'}),
   selectedItem: 'Select...'
 };
 

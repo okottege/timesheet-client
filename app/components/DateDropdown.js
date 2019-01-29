@@ -21,7 +21,6 @@ class DateDropdown extends React.Component {
     return (
       <div>
         <DropdownList
-          id="ddlDateSelect"
           items={this.getDaysForMonth(this.props.year, this.props.monthIndex)}
           selectedItem={selectedDate}
           onItemSelected={this.onDateSelected}/>
