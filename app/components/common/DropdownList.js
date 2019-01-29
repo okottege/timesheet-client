@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import randomstring from 'randomstring';
+
 import {DropdownButton, ButtonToolbar, MenuItem} from "react-bootstrap";
 
 class DropdownList extends React.Component {
@@ -37,6 +39,7 @@ DropdownList.propTypes = {
 };
 
 DropdownList.defaultProps = {
+  id: randomstring.generate({length: 10, charset: 'alphabetic'}),
   selectedItem: 'Select...'
 };
 
