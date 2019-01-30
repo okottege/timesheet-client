@@ -18,11 +18,8 @@ class DropdownList extends React.Component {
   };
 
   getItemNameByValue = (items, selectedItemValue) => {
-    if(!items) return undefined;
-    if(selectedItemValue === DEFAULT_SELECTED_VALUE) return selectedItemValue;
-
     const item = items.find(i => i.value === selectedItemValue);
-    return item ? item.name : undefined;
+    return item ? item.name : DEFAULT_SELECTED_VALUE;
   };
 
   render() {
@@ -50,7 +47,8 @@ DropdownList.propTypes = {
 
 DropdownList.defaultProps = {
   id: randomString.generate({length: 10, charset: 'alphabetic'}),
-  selectedItem: DEFAULT_SELECTED_VALUE
+  selectedItem: DEFAULT_SELECTED_VALUE,
+  items: []
 };
 
 export default DropdownList;
