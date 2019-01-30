@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import DropdownList from "./common/DropdownList";
+import {populateArrayWithSequence} from './common/utils/arrayHelpers';
 
 class YearDropdown extends React.Component {
   onYearSelected = year => {
     if(this.props.onYearSelected) this.props.onYearSelected(Number(year));
   };
 
-  getYears = (startYear, numYears) =>
-    Array.from({length: numYears},(v, i) => i + startYear).reverse()
+  getYears = (startYear, numYears) => {
+    return populateArrayWithSequence(startYear, numYears)
+      .reverse()
       .map(i => i.toString())
       .map(i => ({name: i, value: i}));
+  };
 
   getSelectedYear = selectedYear =>
     selectedYear !== undefined ? this.props.selectedYear.toString(): undefined;
