@@ -31,20 +31,21 @@ describe('MonthDropdown should', () => {
       ['9', 'October'],
       ['10', 'November'],
       ['11', 'December'],
-    ])('item at index %i should be %p', (index, expectedMonthName) => {
+    ])('month at index %i should be %p', (index, expectedMonthName) => {
       expect(monthItems[index].name).toBe(expectedMonthName);
       expect(monthItems[index].value).toBe(index);
     });
   });
 
-  test('Render no option selected when selected month is NOT supplied', () => {
+  test("render no selected month when it is NOT supplied", () => {
     const monthDropdown = shallow(<MonthDropdown/>);
-    expect(monthDropdown.find(DropdownList).prop('selectedItem')).toBe('Select...');
+    expect(monthDropdown.prop('selectedMonth')).not.toBeDefined();
   });
 
-  test('Render the selected month correctly when selected month is supplied', () => {
-    const monthDropdown = shallow(<MonthDropdown selectedMonth={5}/>);
-    expect(monthDropdown.find(DropdownList).prop('selectedItem')).toEqual('5');
+  test.each([0, 1, 10])
+    ('render the selected month correctly when selected month index is: %i', (selectedMonthIndex) => {
+    const monthDropdown = shallow(<MonthDropdown selectedMonth={selectedMonthIndex}/>);
+    expect(monthDropdown.find(DropdownList).prop('selectedItem')).toEqual(selectedMonthIndex.toString());
   });
 
   test('invoke onMonthSelected when a month is selected', () => {

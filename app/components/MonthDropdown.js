@@ -27,7 +27,8 @@ class MonthDropdown extends React.Component {
   };
 
   render() {
-    const selectedMonth = this.props.selectedMonth ? this.props.selectedMonth.toString() : undefined;
+    const selectedMonth =
+      this.props.selectedMonth !== undefined ? this.props.selectedMonth.toString() : undefined;
     return (
       <div>
         <DropdownList
