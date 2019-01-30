@@ -2,47 +2,46 @@ import React from 'react';
 import {shallow} from 'enzyme';
 
 import YearDropdown from '../YearDropdown';
+import DropdownList from '../common/DropdownList';
 
 describe('YearDropdown component should', () => {
-  test('render correctly', () => {
-    const yearDropdown = shallow(<YearDropdown startYear={2000} numYears={10}/>);
-    expect(yearDropdown.find('select').length).toBe(1);
-  });
-
-  test('render the correct number of years', () => {
+  describe('render correctly with:', () => {
     const yearDropdown = shallow(<YearDropdown startYear={2000} numYears={5}/>);
-    expect(yearDropdown.find('option').length).toBe(5);
-  });
+    const dropDownList = yearDropdown.find(DropdownList);
 
-  test.each([
-      [0, 2019],
-      [1, 2018],
-      [2, 2017],
-      [3, 2016],
-      [4, 2015],
-    ])('render the years in order: at %i index, year %i', (yearItemIndex, expectedYear) => {
-      const yearDropDown = shallow(<YearDropdown startYear={2015} numYears={5}/>);
-      const yearOption = yearDropDown.find('select').childAt(yearItemIndex);
-
-      expect(yearOption.prop('value')).toBe(expectedYear);
-      expect(yearOption.text()).toBe(expectedYear.toString());
+    test('a DropdownList control', () => {
+      expect(dropDownList.exists()).toBe(true);
+    });
+    test('10 items supplied to the DropdownList', () => {
+      expect(dropDownList.prop('items').length).toBe(5);
+    });
+    test.each([
+      [0, 2004],
+      [1, 2003],
+      [2, 2002],
+      [3, 2001],
+      [4, 2000],
+    ])('years in descending order: at index %i it has year %i', (index, expectedYear) => {
+      expect(dropDownList.prop('items')[index].name).toBe(expectedYear.toString());
+    });
   });
 
   test('selected year is rendered correctly', () => {
     const yearDropdown = shallow(<YearDropdown startYear={2000} numYears={5} selectedYear={2004}/>);
-    expect(yearDropdown.find('select').prop('value')).toBe(2004);
+    expect(yearDropdown.find(DropdownList).prop('selectedItem')).toBe('2004');
   });
 
   test('triggers onYearSelected with the correct year when an Year is selected', () => {
     const onYearSelected = jest.fn();
     const yearDropdown = shallow(<YearDropdown startYear={2000} numYears={10} onYearSelected={onYearSelected}/>);
-    yearDropdown.find('select').simulate('change', {target: {value: 2005}});
-    expect(onYearSelected).toHaveBeenCalledWith(2005);
+    yearDropdown.find(DropdownList).prop('onItemSelected')('2000');
+    expect(onYearSelected).toHaveBeenCalledWith(2000);
   });
 
   test('NOT trigger onYearSelected when the event handler is not supplied', () => {
+    const onYearSelected = jest.fn();
     const yearDropdown = shallow(<YearDropdown startYear={2000} numYears={20}/>);
-    yearDropdown.find('select').simulate('change', {target: {value: 2005}});
-    expect(yearDropdown.length).toBe(1);
+    yearDropdown.find(DropdownList).prop('onItemSelected')('2000');
+    expect(onYearSelected).not.toHaveBeenCalled();
   });
 });
