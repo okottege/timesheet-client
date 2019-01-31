@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {ButtonToolbar} from "react-bootstrap";
 
 import DateDropdown from './DateDropdown';
 import MonthDropdown from './MonthDropdown';
 import YearDropdown from './YearDropdown';
-import {ButtonToolbar} from "react-bootstrap";
 
 class DatePicker extends React.Component {
   getSelectedDate = () => !this.props.selectedDate ? new Date() : this.props.selectedDate;

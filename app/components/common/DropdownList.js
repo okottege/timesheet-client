@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import randomString from 'randomstring';
 
-import {DropdownButton, ButtonToolbar, MenuItem} from "react-bootstrap";
+import {DropdownButton, MenuItem} from "react-bootstrap";
 
 const DEFAULT_SELECTED_VALUE = 'Select...';
 
