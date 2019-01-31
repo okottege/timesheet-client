@@ -12,7 +12,7 @@ class YearDropdown extends React.Component {
   getYears = (startYear, numYears) => {
     return populateArrayWithSequence(startYear, numYears)
       .reverse()
-      .map(i => i.toString())
+      .map(String)
       .map(i => ({name: i, value: i}));
   };
 
