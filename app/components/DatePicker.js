@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import DateDropdown from './DateDropdown';
 import MonthDropdown from './MonthDropdown';
 import YearDropdown from './YearDropdown';
+import {ButtonToolbar} from "react-bootstrap";
 
 class DatePicker extends React.Component {
   getSelectedDate = () => !this.props.selectedDate ? new Date() : this.props.selectedDate;
@@ -30,21 +31,23 @@ class DatePicker extends React.Component {
         {!!this.props.title &&
           <span>{this.props.title}</span>
         }
-        <DateDropdown
-          selectedDate={selectedDate.getDate()}
-          monthIndex={selectedDate.getMonth()}
-          year={selectedDate.getFullYear()}
-          onDateSelected={d => this.notifyDateChanged('date', d)}/>
+        <ButtonToolbar>
+          <DateDropdown
+            selectedDate={selectedDate.getDate()}
+            monthIndex={selectedDate.getMonth()}
+            year={selectedDate.getFullYear()}
+            onDateSelected={d => this.notifyDateChanged('date', d)}/>
 
-        <MonthDropdown
-          selectedMonth={selectedDate.getMonth()}
-          onMonthSelected={m => this.notifyDateChanged('month', m)} />
+          <MonthDropdown
+            selectedMonth={selectedDate.getMonth()}
+            onMonthSelected={m => this.notifyDateChanged('month', m)} />
 
-        <YearDropdown
-          selectedYear={selectedDate.getFullYear()}
-          startYear={this.props.minYear}
-          numYears={this.props.numberOfYears}
-          onYearSelected={y => this.notifyDateChanged('year', y)}/>
+          <YearDropdown
+            selectedYear={selectedDate.getFullYear()}
+            startYear={this.props.minYear}
+            numYears={this.props.numberOfYears}
+            onYearSelected={y => this.notifyDateChanged('year', y)}/>
+        </ButtonToolbar>
       </div>
     );
   }

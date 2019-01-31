@@ -28,13 +28,11 @@ class DropdownList extends React.Component {
   render() {
     return (
       <div>
-        <ButtonToolbar>
-          <DropdownButton
-            id={this.getControlId(this.props.id)}
-            title={this.getItemNameByValue(this.props.items, this.props.selectedItem)}>
-            {this.props.items && this.renderItems(this.props.items)}
-          </DropdownButton>
-        </ButtonToolbar>
+        <DropdownButton
+          id={this.getControlId(this.props.id)}
+          title={this.getItemNameByValue(this.props.items, this.props.selectedItem)}>
+          {this.props.items && this.renderItems(this.props.items)}
+        </DropdownButton>
       </div>
     );
   }
