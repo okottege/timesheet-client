@@ -22,11 +22,16 @@ class DropdownList extends React.Component {
     return item ? item.name : DEFAULT_SELECTED_VALUE;
   };
 
+  getControlId = (id) =>
+    !id ? randomString.generate({length: 10, charset: 'alphabetic'}) : id;
+
   render() {
     return (
       <div>
         <ButtonToolbar>
-          <DropdownButton id={this.props.id} title={this.getItemNameByValue(this.props.items, this.props.selectedItem)}>
+          <DropdownButton
+            id={this.getControlId(this.props.id)}
+            title={this.getItemNameByValue(this.props.items, this.props.selectedItem)}>
             {this.props.items && this.renderItems(this.props.items)}
           </DropdownButton>
         </ButtonToolbar>
@@ -36,7 +41,7 @@ class DropdownList extends React.Component {
 }
 
 DropdownList.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   selectedItem: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
@@ -46,7 +51,6 @@ DropdownList.propTypes = {
 };
 
 DropdownList.defaultProps = {
-  id: randomString.generate({length: 10, charset: 'alphabetic'}),
   selectedItem: DEFAULT_SELECTED_VALUE,
   items: []
 };
