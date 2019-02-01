@@ -1,13 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Form, FormGroup, FormControl} from "react-bootstrap";
+import {Form, FormGroup, FormControl, ControlLabel} from "react-bootstrap";
+import DatePicker from "../DatePicker";
 
 class EmployeeDetails extends React.Component {
+  onDateOfBirthSelected = date => {};
+  onHireDateSelected = date => {};
+
   render() {
     return (
       <Form>
-        <FormGroup controlId="frmEmployeeDetails">
-          <FormControl type="text" id="txtFirstName" />
+        <FormGroup controlId="txtFirstName">
+          <ControlLabel>First name</ControlLabel>
+          <FormControl type="text" />
+        </FormGroup>
+        <FormGroup controlId="txtLastName">
+          <ControlLabel>Last name</ControlLabel>
+          <FormControl type="text" />
+        </FormGroup>
+        <FormGroup controlId="txtDateOfBirth">
+          <ControlLabel>Date of birth</ControlLabel>
+          <DatePicker onDateSelected={this.onDateOfBirthSelected}/>
+        </FormGroup>
+        <FormGroup controlId="txtHireDate">
+          <ControlLabel>Hire date</ControlLabel>
+          <DatePicker onDateSelected={this.onHireDateSelected}/>
+        </FormGroup>
+        <FormGroup controlId="txtEmail">
+          <ControlLabel>Email address</ControlLabel>
+          <FormControl type="email" />
         </FormGroup>
       </Form>
     );
