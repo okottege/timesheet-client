@@ -17,7 +17,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <Alert bsStyle="warning">
+        <Alert variant="warning">
           <strong>Simple Warning</strong>, best to take it easy.
         </Alert>
         <h1>Hello Mr Developer!</h1>

@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import randomString from 'randomstring';
 
-import {DropdownButton, MenuItem} from "react-bootstrap";
+import {DropdownButton, Dropdown} from "react-bootstrap";
 
 const DEFAULT_SELECTED_VALUE = 'Select...';
 
 class DropdownList extends React.Component {
   renderItems = items => items.map(i => (
-      <MenuItem key={i.value} eventKey={i.value} onSelect={this.onItemSelected}>
+      <Dropdown.Item key={i.value} eventKey={i.value} onSelect={this.onItemSelected}>
         {i.name}
-      </MenuItem>
+      </Dropdown.Item>
     ));
 
   onItemSelected = eventKey => {
@@ -27,13 +27,12 @@ class DropdownList extends React.Component {
 
   render() {
     return (
-      <div>
-        <DropdownButton
-          id={this.getControlId(this.props.id)}
-          title={this.getItemNameByValue(this.props.items, this.props.selectedItem)}>
-          {this.props.items && this.renderItems(this.props.items)}
-        </DropdownButton>
-      </div>
+      <DropdownButton
+        id={this.getControlId(this.props.id)}
+        variant="light"
+        title={this.getItemNameByValue(this.props.items, this.props.selectedItem)}>
+        {this.props.items && this.renderItems(this.props.items)}
+      </DropdownButton>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import {shallow, mount} from 'enzyme';
-import {Form, FormGroup, FormControl, ControlLabel} from "react-bootstrap";
+import {mount} from 'enzyme';
+import {Form, Button} from "react-bootstrap";
 
 import EmployeeDetails from '../EmployeeDetails';
 import DatePicker from "../../DatePicker";
@@ -20,8 +20,8 @@ describe('Employee Details component should', () => {
         ['email', 'txtEmail', 'Email address'],
       ])('input field of type: %p with id %p and label: %p exists', (type, controlId, labelText) => {
         const fld = employeeDetails.find({controlId: controlId});
-        const lbl = fld.find(ControlLabel);
-        const formCtrl = fld.find(FormControl);
+        const lbl = fld.find(Form.Label);
+        const formCtrl = fld.find(Form.Control);
 
         expect(formCtrl.prop('type')).toBe(type);
         expect(lbl.at(0).text()).toBe(labelText);
@@ -34,11 +34,17 @@ describe('Employee Details component should', () => {
         ['txtHireDate', 'Hire date'],
       ])('date picker field with id %p and label: %p exists', (controlId, labelText) => {
         const fld = employeeDetails.find({controlId: controlId});
-        const lbl = fld.find(ControlLabel);
+        const lbl = fld.find(Form.Label);
 
         expect(fld.find(DatePicker).exists()).toBe(true);
         expect(lbl.at(0).text()).toBe(labelText);
-      })
+      });
+    });
+
+    test('has submit button', () => {
+      const button = employeeDetails.find(Button).find({controlId: 'btnSubmit'}).at(0);
+      expect(button.prop('variant')).toBe('primary');
+      expect(button.text()).toBe('Submit');
     });
   });
 
