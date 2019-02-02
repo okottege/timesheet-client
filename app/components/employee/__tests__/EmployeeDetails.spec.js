@@ -59,6 +59,14 @@ describe('Employee Details component should', () => {
     });
   });
 
+  test('populate the state with props', () => {
+    const employee = {
+      firstName: 'Brian', lastName: 'Adams', dateOfBirth: new Date('1985-05-04'),
+      hireDate: new Date('2011-11-10'), email: 'b.a@hotmail.com'};
+    const employeeDetails = shallow(<EmployeeDetails employee={employee}/>);
+    expect(employeeDetails.state('employee')).toEqual(employee);
+  });
+
   describe('display employee details that have been supplied', () => {
     const employee = {
       firstName: 'Steven',

@@ -4,6 +4,10 @@ import {Form, Button} from "react-bootstrap";
 import DatePicker from "../DatePicker";
 
 class EmployeeDetails extends React.Component {
+  state = {
+    employee: {...this.props.employee}
+  };
+
   onDateOfBirthSelected = date => {};
   onHireDateSelected = date => {};
   onSubmit = e => {};
