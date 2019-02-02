@@ -13,23 +13,23 @@ class EmployeeDetails extends React.Component {
       <Form>
         <Form.Group controlId="txtFirstName">
           <Form.Label>First name</Form.Label>
-          <Form.Control type="text" />
+          <Form.Control type="text" value={this.props.employee.firstName} />
         </Form.Group>
         <Form.Group controlId="txtLastName">
           <Form.Label>Last name</Form.Label>
-          <Form.Control type="text" />
+          <Form.Control type="text" value={this.props.employee.lastName} />
         </Form.Group>
         <Form.Group controlId="txtDateOfBirth">
           <Form.Label>Date of birth</Form.Label>
-          <DatePicker onDateSelected={this.onDateOfBirthSelected}/>
+          <DatePicker onDateSelected={this.onDateOfBirthSelected} selectedDate={this.props.employee.dateOfBirth}/>
         </Form.Group>
         <Form.Group controlId="txtHireDate">
           <Form.Label>Hire date</Form.Label>
-          <DatePicker onDateSelected={this.onHireDateSelected}/>
+          <DatePicker onDateSelected={this.onHireDateSelected} selectedDate={this.props.employee.hireDate}/>
         </Form.Group>
         <Form.Group controlId="txtEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" />
+          <Form.Control type="email" value={this.props.employee.email} />
         </Form.Group>
 
         <Button id="btnSubmit" variant="primary" onClick={this.onSubmit}>
@@ -54,7 +54,8 @@ EmployeeDetails.propTypes = {
 };
 
 EmployeeDetails.defaultProps = {
-  mode: 'Create'
+  mode: 'Create',
+  employee: {}
 };
 
 export default EmployeeDetails;

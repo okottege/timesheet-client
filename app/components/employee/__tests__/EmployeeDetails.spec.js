@@ -1,5 +1,5 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import {Form, Button} from "react-bootstrap";
 
 import EmployeeDetails from '../EmployeeDetails';
@@ -53,6 +53,37 @@ describe('Employee Details component should', () => {
 
     test("the 'mode' prop should default to 'Create'", () => {
       expect(employeeDetails.prop('mode')).toBe('Create');
-    })
+    });
+    test("the 'employee' prop should be an empty object", () => {
+      expect(employeeDetails.prop('employee')).toEqual({});
+    });
+  });
+
+  describe('display employee details that have been supplied', () => {
+    const employee = {
+      firstName: 'Steven',
+      lastName: 'Smith',
+      dateOfBirth: new Date(1980, 4, 14),
+      hireDate: new Date(2013, 9, 15),
+      email: 'steve.smith@gmail.com'
+    };
+    const employeeDetails = shallow(<EmployeeDetails employee={employee}/>);
+
+    test.each([
+      ['txtFirstName', employee.firstName],
+      ['txtLastName', employee.lastName],
+      ['txtEmail', employee.email]
+    ])('the text field %p is populated with %p', (textFieldId, expectedValue) => {
+      const fld = employeeDetails.find({controlId: textFieldId}).find(Form.Control);
+      expect(fld.prop('value')).toBe(expectedValue);
+    });
+
+    test.each([
+      ['txtDateOfBirth', employee.dateOfBirth],
+      ['txtHireDate', employee.hireDate],
+    ])('the date picker field %p is populated with %p', (dateFieldId, expectedDate) => {
+      const fld = employeeDetails.find({controlId: dateFieldId}).find(DatePicker);
+      expect(fld.prop('selectedDate')).toEqual(expectedDate);
+    });
   })
 });
