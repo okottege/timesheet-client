@@ -41,8 +41,8 @@ describe('Employee Details component should', () => {
       });
     });
 
-    test('has submit button', () => {
-      const button = employeeDetails.find(Button).find({controlId: 'btnSubmit'}).at(0);
+    test('have a submit button', () => {
+      const button = employeeDetails.find(Button).find({id: 'btnSubmit'}).at(0);
       expect(button.prop('variant')).toBe('primary');
       expect(button.text()).toBe('Submit');
     });

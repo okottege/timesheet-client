@@ -30,12 +30,7 @@ class MonthDropdown extends React.Component {
     const selectedMonth =
       this.props.selectedMonth !== undefined ? this.props.selectedMonth.toString() : undefined;
     return (
-      <div>
-        <DropdownList
-          items={this.state.months}
-          selectedItem={selectedMonth}
-          onItemSelected={this.onMonthSelected}/>
-      </div>
+      <DropdownList items={this.state.months} selectedItem={selectedMonth} onItemSelected={this.onMonthSelected}/>
     );
   }
 }

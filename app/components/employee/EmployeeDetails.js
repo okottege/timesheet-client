@@ -32,7 +32,7 @@ class EmployeeDetails extends React.Component {
           <Form.Control type="email" />
         </Form.Group>
 
-        <Button controlId="btnSubmit" variant="primary" onClick={this.onSubmit}>
+        <Button id="btnSubmit" variant="primary" onClick={this.onSubmit}>
           Submit
         </Button>
       </Form>

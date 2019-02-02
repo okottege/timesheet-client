@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import randomString from 'randomstring';
 
-import {DropdownButton, Dropdown} from "react-bootstrap";
+import {DropdownButton, Dropdown, ButtonGroup} from "react-bootstrap";
 
 const DEFAULT_SELECTED_VALUE = 'Select...';
 
@@ -26,8 +26,10 @@ class DropdownList extends React.Component {
     !id ? randomString.generate({length: 10, charset: 'alphabetic'}) : id;
 
   render() {
+    const ddStyle = {paddingRight: '7px'};
     return (
       <DropdownButton
+        style={ddStyle}
         id={this.getControlId(this.props.id)}
         variant="light"
         title={this.getItemNameByValue(this.props.items, this.props.selectedItem)}>

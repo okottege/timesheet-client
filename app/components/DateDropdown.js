@@ -20,12 +20,10 @@ class DateDropdown extends React.Component {
       : undefined;
 
     return (
-      <div>
-        <DropdownList
-          items={this.getDaysForMonth(this.props.year, this.props.monthIndex)}
-          selectedItem={selectedDate}
-          onItemSelected={this.onDateSelected}/>
-      </div>
+      <DropdownList
+        items={this.getDaysForMonth(this.props.year, this.props.monthIndex)}
+        selectedItem={selectedDate}
+        onItemSelected={this.onDateSelected}/>
     );
   }
 }

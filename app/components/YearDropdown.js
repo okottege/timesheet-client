@@ -21,12 +21,10 @@ class YearDropdown extends React.Component {
 
   render () {
     return (
-      <div>
-        <DropdownList
-          items={this.getYears(this.props.startYear, this.props.numYears)}
-          selectedItem={this.getSelectedYear(this.props.selectedYear)}
-          onItemSelected={this.onYearSelected}/>
-      </div>
+      <DropdownList
+        items={this.getYears(this.props.startYear, this.props.numYears)}
+        selectedItem={this.getSelectedYear(this.props.selectedYear)}
+        onItemSelected={this.onYearSelected}/>
     );
   }
 }
