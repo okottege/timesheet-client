@@ -4,12 +4,10 @@ import {Form, Button} from "react-bootstrap";
 import DatePicker from "../DatePicker";
 
 class EmployeeDetails extends React.Component {
-  onDateOfBirthSelected = date => {};
-  onHireDateSelected = date => {};
   onSubmit = e => {};
 
-  onTextFieldChange = (fldName, e) => {
-    if(this.props.onDetailsChanged) this.props.onDetailsChanged({field: fldName, value: e.target.value});
+  onFieldChange = (e) => {
+    if(this.props.onDetailsChanged) this.props.onDetailsChanged({field: e.field, value: e.target.value});
   };
 
   render() {
@@ -20,26 +18,37 @@ class EmployeeDetails extends React.Component {
           <Form.Control
             type="text"
             value={this.props.employee.firstName}
-            onChange={e => this.onTextFieldChange('firstName', e)} />
+            onChange={e => this.onFieldChange({...e, field: 'firstName'})} />
         </Form.Group>
+
         <Form.Group controlId="txtLastName">
           <Form.Label>Last name</Form.Label>
           <Form.Control
             type="text"
             value={this.props.employee.lastName}
-            onChange={e => this.onTextFieldChange('lastName', e)} />
+            onChange={e => this.onFieldChange({...e, field: 'lastName'})} />
         </Form.Group>
+
         <Form.Group controlId="txtDateOfBirth">
           <Form.Label>Date of birth</Form.Label>
-          <DatePicker onDateSelected={this.onDateOfBirthSelected} selectedDate={this.props.employee.dateOfBirth}/>
+          <DatePicker
+            onDateSelected={e => this.onFieldChange({...e, field: 'dateOfBirth'})}
+            selectedDate={this.props.employee.dateOfBirth}/>
         </Form.Group>
+
         <Form.Group controlId="txtHireDate">
           <Form.Label>Hire date</Form.Label>
-          <DatePicker onDateSelected={this.onHireDateSelected} selectedDate={this.props.employee.hireDate}/>
+          <DatePicker
+            onDateSelected={e => this.onFieldChange({...e, field: 'hireDate'})}
+            selectedDate={this.props.employee.hireDate} />
         </Form.Group>
+
         <Form.Group controlId="txtEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" value={this.props.employee.email} />
+          <Form.Control
+            type="email"
+            value={this.props.employee.email}
+            onChange={e => this.onFieldChange({...e, field: 'email'})} />
         </Form.Group>
 
         <Button id="btnSubmit" variant="primary" onClick={this.onSubmit}>

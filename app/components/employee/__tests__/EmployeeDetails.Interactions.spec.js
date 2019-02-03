@@ -3,7 +3,12 @@ import {shallow} from 'enzyme';
 import {Form} from 'react-bootstrap';
 
 import EmployeeDetails from '../EmployeeDetails';
+import DatePicker from '../../DatePicker';
 
+const invokeChangedHandler = (component, controlId, fieldType, handlerPropName, handlerArgValue) => {
+  const fld = component.find({controlId}).find(fieldType);
+  fld.prop(handlerPropName)({target: {value: handlerArgValue}});
+};
 
 describe('Employee Details user interactions', () => {
   const employee = {
@@ -11,13 +16,15 @@ describe('Employee Details user interactions', () => {
     hireDate: new Date('2011-11-10'), email: 'b.a@hotmail.com'};
 
   test.each([
-    ['txtFirstName', 'firstName', 'New-Brian'],
-    ['txtLastName', 'lastName', 'new-Adams'],
-  ])('when text field: %p changes, handler is invoked with args {fieldName: %p, value: %p}', (ctrlId, fldName, value) => {
+    ['txtFirstName', 'onChange', Form.Control, 'firstName', 'New-Brian'],
+    ['txtLastName', 'onChange', Form.Control, 'lastName', 'new-Adams'],
+    ['txtDateOfBirth', 'onDateSelected', DatePicker, 'dateOfBirth', new Date('2019-05-04')],
+    ['txtHireDate', 'onDateSelected', DatePicker, 'hireDate', new Date('2013-10-15')],
+    ['txtEmail', 'onChange', Form.Control, 'email', 'abc.xyz@gmail.com'],
+  ])('when field %p changes, %p handler is invoked with args', (ctrlId, handlerName, fldType, fldName, value) => {
     const onDetailsChanged = jest.fn();
     const employeeDetails = shallow(<EmployeeDetails employee={employee} onDetailsChanged={onDetailsChanged}/>);
-    const txtField = employeeDetails.find({controlId: ctrlId}).find(Form.Control);
-    txtField.prop('onChange')({target: {value: value}});
+    invokeChangedHandler(employeeDetails, ctrlId, fldType, handlerName, value);
 
     expect(onDetailsChanged).toHaveBeenCalledWith({field: fldName, value: value});
   });
