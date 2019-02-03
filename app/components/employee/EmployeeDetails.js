@@ -4,24 +4,30 @@ import {Form, Button} from "react-bootstrap";
 import DatePicker from "../DatePicker";
 
 class EmployeeDetails extends React.Component {
-  state = {
-    employee: {...this.props.employee}
-  };
-
   onDateOfBirthSelected = date => {};
   onHireDateSelected = date => {};
   onSubmit = e => {};
+
+  onTextFieldChange = (fldName, e) => {
+    if(this.props.onDetailsChanged) this.props.onDetailsChanged({field: fldName, value: e.target.value});
+  };
 
   render() {
     return (
       <Form>
         <Form.Group controlId="txtFirstName">
           <Form.Label>First name</Form.Label>
-          <Form.Control type="text" value={this.props.employee.firstName} />
+          <Form.Control
+            type="text"
+            value={this.props.employee.firstName}
+            onChange={e => this.onTextFieldChange('firstName', e)} />
         </Form.Group>
         <Form.Group controlId="txtLastName">
           <Form.Label>Last name</Form.Label>
-          <Form.Control type="text" value={this.props.employee.lastName} />
+          <Form.Control
+            type="text"
+            value={this.props.employee.lastName}
+            onChange={e => this.onTextFieldChange('lastName', e)} />
         </Form.Group>
         <Form.Group controlId="txtDateOfBirth">
           <Form.Label>Date of birth</Form.Label>
