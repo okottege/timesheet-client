@@ -36,4 +36,12 @@ describe('Employee Details user interactions', () => {
 
     expect(onDetailsChanged).not.toHaveBeenCalled();
   });
+
+  test('when submit button is clicked, the supplied handler is invoked', () => {
+    const onSubmit = jest.fn();
+    const employeeDetails = shallow(<EmployeeDetails onSubmitClick={onSubmit} />);
+    employeeDetails.find({id: 'btnSubmit'}).prop('onClick')();
+
+    expect(onSubmit).toHaveBeenCalled();
+  });
 });

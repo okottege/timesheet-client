@@ -4,8 +4,6 @@ import {Form, Button} from "react-bootstrap";
 import DatePicker from "../DatePicker";
 
 class EmployeeDetails extends React.Component {
-  onSubmit = e => {};
-
   onFieldChange = (e) => {
     if(this.props.onDetailsChanged) this.props.onDetailsChanged({field: e.field, value: e.target.value});
   };
@@ -51,7 +49,7 @@ class EmployeeDetails extends React.Component {
             onChange={e => this.onFieldChange({...e, field: 'email'})} />
         </Form.Group>
 
-        <Button id="btnSubmit" variant="primary" onClick={this.onSubmit}>
+        <Button id="btnSubmit" variant="primary" onClick={this.props.onSubmitClick}>
           Submit
         </Button>
       </Form>
@@ -69,7 +67,8 @@ EmployeeDetails.propTypes = {
     email: PropTypes.string
   }),
   mode: PropTypes.oneOf(['Create', 'Update']),
-  onDetailsChanged: PropTypes.func
+  onDetailsChanged: PropTypes.func,
+  onSubmitClick: PropTypes.func
 };
 
 EmployeeDetails.defaultProps = {
