@@ -29,7 +29,7 @@ describe('Employee Details user interactions', () => {
     expect(onDetailsChanged).toHaveBeenCalledWith({field: fldName, value: value});
   });
 
-  test('handler is not invoked if none is supplied', () => {
+  test('The field change handler is not invoked if it is NOT supplied', () => {
     const onDetailsChanged = jest.fn();
     const employeeDetails = shallow(<EmployeeDetails/>);
     employeeDetails.find({controlId: 'txtFirstName'}).find(Form.Control).prop('onChange')({target: {value: 'test'}});
@@ -37,11 +37,32 @@ describe('Employee Details user interactions', () => {
     expect(onDetailsChanged).not.toHaveBeenCalled();
   });
 
-  test('when submit button is clicked, the supplied handler is invoked', () => {
+  describe('when the underlying form is submitted', () => {
     const onSubmit = jest.fn();
-    const employeeDetails = shallow(<EmployeeDetails onSubmitClick={onSubmit} />);
-    employeeDetails.find({id: 'btnSubmit'}).prop('onClick')();
+    const preventDefault = jest.fn();
+    const employeeDetails = shallow(<EmployeeDetails onSubmit={onSubmit} />);
+    employeeDetails.find(Form).prop('onSubmit')({preventDefault});
 
-    expect(onSubmit).toHaveBeenCalled();
+    test('the "onSubmit" handler is invoked', () => {
+      expect(onSubmit).toHaveBeenCalled();
+    });
+    test('the "preventDefault" of args has been called', () => {
+      expect(preventDefault).toHaveBeenCalled();
+    })
+  });
+
+  test('the onSubmit handler is ONLY invoked if it is supplied when the form is submitted', () => {
+    const onSubmit = jest.fn();
+    const employeeDetails = shallow(<EmployeeDetails/>);
+    employeeDetails.find(Form).prop('onSubmit')();
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+
+  test('when "Cancel" button is clicked, the supplied handler is invoked', () => {
+    const onCancel = jest.fn();
+    const employeeDetails = shallow(<EmployeeDetails onCancel={onCancel} />);
+    employeeDetails.find({id: 'btnCancel'}).prop('onClick')();
+    expect(onCancel).toHaveBeenCalled();
   });
 });

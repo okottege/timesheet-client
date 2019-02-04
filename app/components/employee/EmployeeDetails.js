@@ -1,16 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Form, Button} from "react-bootstrap";
+import {Form, ButtonToolbar, Button} from "react-bootstrap";
 import DatePicker from "../DatePicker";
 
 class EmployeeDetails extends React.Component {
-  onFieldChange = (e) => {
+  onFieldChange = e => {
     if(this.props.onDetailsChanged) this.props.onDetailsChanged({field: e.field, value: e.target.value});
+  };
+
+  onFormSubmit = e => {
+    if(e) e.preventDefault();
+    if(this.props.onSubmit) this.props.onSubmit();
   };
 
   render() {
     return (
-      <Form>
+      <Form onSubmit={this.onFormSubmit}>
         <Form.Group controlId="txtFirstName">
           <Form.Label>First name</Form.Label>
           <Form.Control
@@ -49,9 +54,10 @@ class EmployeeDetails extends React.Component {
             onChange={e => this.onFieldChange({...e, field: 'email'})} />
         </Form.Group>
 
-        <Button id="btnSubmit" variant="primary" onClick={this.props.onSubmitClick}>
-          Submit
-        </Button>
+        <ButtonToolbar>
+          <Button id="btnSubmit" type="submit" variant="primary">Submit</Button>
+          <Button id="btnCancel" variant="secondary" onClick={this.props.onCancel}>Cancel</Button>
+        </ButtonToolbar>
       </Form>
     );
   }
@@ -68,7 +74,8 @@ EmployeeDetails.propTypes = {
   }),
   mode: PropTypes.oneOf(['Create', 'Update']),
   onDetailsChanged: PropTypes.func,
-  onSubmitClick: PropTypes.func
+  onSubmit: PropTypes.func,
+  onCancel: PropTypes.func
 };
 
 EmployeeDetails.defaultProps = {
