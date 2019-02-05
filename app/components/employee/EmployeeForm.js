@@ -3,11 +3,22 @@ import PropTypes from 'prop-types';
 import EmployeeDetails from "./EmployeeDetails";
 
 class EmployeeForm extends React.Component {
-  state = {};
+  state = {
+    employee: {}
+  };
+
+  onEmployeeDetailsChanged = e => {
+    const {name, value} = e;
+    this.setState(prevState => (
+      {employee: {...prevState.employee, [name]: value}})
+    );
+  };
 
   render() {
     return (
-      <EmployeeDetails />
+      <EmployeeDetails
+        employee={this.state.employee}
+        onDetailsChanged={this.onEmployeeDetailsChanged} />
     )
   }
 }
