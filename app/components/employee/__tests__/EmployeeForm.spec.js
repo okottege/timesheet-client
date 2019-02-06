@@ -9,15 +9,18 @@ describe('The Employee Form should', () => {
     const employeeForm = shallow(<EmployeeForm/>);
     expect(employeeForm.find(EmployeeDetails).exists()).toBe(true);
   });
-  describe('update the state correctly', () => {
+
+  describe('render Employee Details correctly when', () => {
     const employeeForm = shallow(<EmployeeForm />);
     test.each([
       ['firstName', 'Bob'],
       ['lastName', 'Smith'],
       ['dateOfBirth', new Date(2019, 2, 3)],
-    ])('when %p field changes, state is updated', (field, value) => {
+      ['hireDate', new Date(2013, 9, 15)],
+      ['email', 'abc.xyz@gmail.com'],
+    ])('%p field changes', (field, value) => {
       employeeForm.find(EmployeeDetails).prop('onDetailsChanged')({field, value});
-      expect(employeeForm.state().employee[field]).toEqual(value);
-    })
+      expect(employeeForm.find(EmployeeDetails).prop('employee')[field]).toEqual(value);
+    });
   });
 });
