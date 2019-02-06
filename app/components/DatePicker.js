@@ -11,17 +11,19 @@ class DatePicker extends React.Component {
 
   notifyDateChanged  = (type, value) => {
     const selectedDate = this.getSelectedDate();
+    let changedDate;
     switch(type) {
       case 'date':
-        this.props.onDateSelected(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), value));
+        changedDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), value);
         break;
       case 'month':
-        this.props.onDateSelected(new Date(selectedDate.getFullYear(), value, selectedDate.getDate()));
+        changedDate = new Date(selectedDate.getFullYear(), value, selectedDate.getDate());
         break;
       case 'year':
-        this.props.onDateSelected(new Date(value, selectedDate.getMonth(), selectedDate.getDate()));
+        changedDate = new Date(value, selectedDate.getMonth(), selectedDate.getDate());
         break;
     }
+    this.props.onDateSelected({target: {value: changedDate}});
   };
 
   render() {

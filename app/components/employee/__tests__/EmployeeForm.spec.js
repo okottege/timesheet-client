@@ -11,9 +11,13 @@ describe('The Employee Form should', () => {
   });
   describe('update the state correctly', () => {
     const employeeForm = shallow(<EmployeeForm />);
-    test('when "firstName" field changes, state is updated', () => {
-      employeeForm.find(EmployeeDetails).prop('onDetailsChanged')({field: 'firstName', value: 'bob'});
-      expect(employeeForm.state().employee['firstName']).toBe('bob');
+    test.each([
+      ['firstName', 'Bob'],
+      ['lastName', 'Smith'],
+      ['dateOfBirth', new Date(2019, 2, 3)],
+    ])('when %p field changes, state is updated', (field, value) => {
+      employeeForm.find(EmployeeDetails).prop('onDetailsChanged')({field, value});
+      expect(employeeForm.state().employee[field]).toEqual(value);
     })
   });
 });

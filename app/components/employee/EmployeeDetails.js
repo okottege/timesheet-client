@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Form, ButtonToolbar, Button} from "react-bootstrap";
-import DatePicker from "../DatePicker";
+
+import DatePicker from '../DatePicker';
+import Styles from '../styles/general';
 
 class EmployeeDetails extends React.Component {
   onFieldChange = e => {
@@ -55,8 +57,12 @@ class EmployeeDetails extends React.Component {
         </Form.Group>
 
         <ButtonToolbar>
-          <Button id="btnSubmit" type="submit" variant="primary">Submit</Button>
-          <Button id="btnCancel" variant="secondary" onClick={this.props.onCancel}>Cancel</Button>
+          <div style={Styles.buttonSpacing}>
+            <Button id="btnSubmit" type="submit" variant="primary">Submit</Button>
+          </div>
+          <div>
+            <Button id="btnCancel" variant="secondary" onClick={this.props.onCancel}>Cancel</Button>
+          </div>
         </ButtonToolbar>
       </Form>
     );

@@ -4,7 +4,7 @@ import {Alert} from 'react-bootstrap';
 
 import './index.css';
 import DatePicker from './components/DatePicker';
-import EmployeeDetails from './components/employee/EmployeeDetails';
+import EmployeeForm from './components/employee/EmployeeForm';
 
 class App extends React.Component {
   state = {
@@ -26,7 +26,7 @@ class App extends React.Component {
           <DatePicker className="form-control" selectedDate={this.state.selectedDate} onDateSelected={this.onDateSelected}/>
         </div>
         <div>
-          <EmployeeDetails/>
+          <EmployeeForm/>
         </div>
       </div>
     );

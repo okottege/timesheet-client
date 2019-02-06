@@ -59,15 +59,18 @@ describe('DatePicker should', () => {
 
     test('selected date is updated when date dropdown selection is made', () => {
       datePicker.find(DateDropdown).prop('onDateSelected')(12);
-      expect(onDateSelected).toHaveBeenCalledWith(new Date(2012, 1, 12));
+      expect(onDateSelected).toHaveBeenCalledWith(
+        {target: {value: new Date(2012,1, 12)}});
     });
     test("selected date's month is updated when month dropdown selection is made", () => {
       datePicker.find(MonthDropdown).prop('onMonthSelected')(4);
-      expect(onDateSelected).toHaveBeenCalledWith(new Date(2012, 4, 27));
+      expect(onDateSelected).toHaveBeenCalledWith(
+        {target: {value: new Date(2012,4, 27)}});
     });
     test("selected date's year is updated when year dropdown selection is made", () => {
       datePicker.find(YearDropdown).prop('onYearSelected')(2000);
-      expect(onDateSelected).toHaveBeenCalledWith(new Date(2000, 1, 27));
+      expect(onDateSelected).toHaveBeenCalledWith(
+        {target: {value: new Date(2000, 1, 27)}});
     });
   });
 });
