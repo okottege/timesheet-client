@@ -26,9 +26,27 @@ describe('The Employee Form should', () => {
 
   describe('validate input fields, when "submit" button is clicked', () => {
     const employeeForm = shallow(<EmployeeForm />);
-    test('all fields are validated', () => {
+
+    test.each([
+      'firstName', 'lastName', 'dateOfBirth', 'hireDate', 'email'
+    ])('if %p is empty, then validation error supplied to Employee Details component', (field) => {
+      employeeForm.find(EmployeeDetails).prop('onDetailsChanged')({field, value: undefined});
       employeeForm.find(EmployeeDetails).prop('onSubmit')();
-      expect(employeeForm.find(EmployeeDetails).prop('errors').length).toBe(5);
+      const error = employeeForm.find(EmployeeDetails).prop('errors').find(e => e.field === field);
+
+      expect(error.message).toBeDefined();
     });
+
+    test('if all fields are filled out, no errors are supplied to Employee Details component', () => {
+      const onDetailsChanged = employeeForm.find(EmployeeDetails).prop('onDetailsChanged');
+      onDetailsChanged({field: 'firstName', value:'Sam'});
+      onDetailsChanged({field: 'lastName', value: 'Billings'});
+      onDetailsChanged({field: 'dateOfBirth', value: new Date('2012-08-12')});
+      onDetailsChanged({field: 'hireDate', value: new Date('2019-00-12')});
+      onDetailsChanged({field: 'email', value: 'a.b@gmail.com'});
+      employeeForm.find(EmployeeDetails).prop('onSubmit')();
+
+      expect(employeeForm.find(EmployeeDetails).prop('errors').length).toBe(0);
+    })
   });
 });
