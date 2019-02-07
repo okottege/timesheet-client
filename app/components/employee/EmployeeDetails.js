@@ -79,6 +79,10 @@ EmployeeDetails.propTypes = {
     email: PropTypes.string
   }),
   mode: PropTypes.oneOf(['Create', 'Update']),
+  errors: PropTypes.arrayOf(PropTypes.shape({
+    field: PropTypes.string,
+    message: PropTypes.string
+  })),
   onDetailsChanged: PropTypes.func,
   onSubmit: PropTypes.func,
   onCancel: PropTypes.func
@@ -86,7 +90,8 @@ EmployeeDetails.propTypes = {
 
 EmployeeDetails.defaultProps = {
   mode: 'Create',
-  employee: {}
+  employee: {},
+  errors: []
 };
 
 export default EmployeeDetails;
