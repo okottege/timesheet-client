@@ -23,4 +23,12 @@ describe('The Employee Form should', () => {
       expect(employeeForm.find(EmployeeDetails).prop('employee')[field]).toEqual(value);
     });
   });
+
+  describe('validate input fields, when "submit" button is clicked', () => {
+    const employeeForm = shallow(<EmployeeForm />);
+    test('all fields are validated', () => {
+      employeeForm.find(EmployeeDetails).prop('onSubmit')();
+      expect(employeeForm.find(EmployeeDetails).prop('errors').length).toBe(5);
+    });
+  });
 });
