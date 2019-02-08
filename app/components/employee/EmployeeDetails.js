@@ -24,6 +24,11 @@ class EmployeeDetails extends React.Component {
             type="text"
             value={this.props.employee.firstName}
             onChange={e => this.onFieldChange({...e, field: 'firstName'})} />
+          {this.props.errors.find(e => e.field === 'firstName') &&
+            <Form.Control.Feedback type="invalid">
+              {this.props.errors.find(e => e.field === 'firstName').message}
+            </Form.Control.Feedback>
+          }
         </Form.Group>
 
         <Form.Group controlId="txtLastName">
