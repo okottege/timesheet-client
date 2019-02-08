@@ -13,4 +13,8 @@ describe('ErrorFeedback component should', () => {
     expect(feedback.prop('type')).toBe('invalid');
     expect(feedback.at(0).childAt(0).text()).toEqual('error msg');
   });
+  test('render nothing if no errors are found', () => {
+    const errFeedback = shallow(<ErrorFeedback/>);
+    expect(errFeedback.children().length).toBe(0);
+  });
 });
