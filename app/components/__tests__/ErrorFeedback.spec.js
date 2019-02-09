@@ -7,14 +7,16 @@ import ErrorFeedback from '../ErrorFeedback';
 describe('ErrorFeedback component should', () => {
   test('render correctly when errors are supplied', () => {
     const errFeedback = shallow(
-      <ErrorFeedback errors={[{field: 'fld', message: 'error msg'}]} field="fld"/>);
+      <ErrorFeedback error={{field: 'fld', message: 'error msg'}}/>);
     const feedback = errFeedback.find(Form.Control.Feedback);
 
     expect(feedback.prop('type')).toBe('invalid');
     expect(feedback.at(0).childAt(0).text()).toEqual('error msg');
   });
-  test('render nothing if no errors are found', () => {
-    const errFeedback = shallow(<ErrorFeedback/>);
-    expect(errFeedback.children().length).toBe(0);
+  test.each([
+    undefined, {}, {message: ''}
+  ])('not render Feedback component if error prop is %p', error => {
+    const errFeedback = shallow(<ErrorFeedback error={error}/>);
+    expect(errFeedback.find(Form.Control.Feedback).exists()).toBe(false);
   });
 });

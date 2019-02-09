@@ -4,6 +4,7 @@ import {Form, ButtonToolbar, Button} from "react-bootstrap";
 
 import DatePicker from '../DatePicker';
 import Styles from '../styles/general';
+import ErrorFeedback from '../ErrorFeedback';
 
 class EmployeeDetails extends React.Component {
   onFieldChange = e => {
@@ -15,6 +16,8 @@ class EmployeeDetails extends React.Component {
     if(this.props.onSubmit) this.props.onSubmit();
   };
 
+  findError = fld => this.props.errors.find(e => e.field === fld);
+
   render() {
     return (
       <Form onSubmit={this.onFormSubmit}>
@@ -24,11 +27,7 @@ class EmployeeDetails extends React.Component {
             type="text"
             value={this.props.employee.firstName}
             onChange={e => this.onFieldChange({...e, field: 'firstName'})} />
-          {this.props.errors.find(e => e.field === 'firstName') &&
-            <Form.Control.Feedback type="invalid">
-              {this.props.errors.find(e => e.field === 'firstName').message}
-            </Form.Control.Feedback>
-          }
+          <ErrorFeedback error={this.findError('firstName')}/>
         </Form.Group>
 
         <Form.Group controlId="txtLastName">
@@ -37,6 +36,7 @@ class EmployeeDetails extends React.Component {
             type="text"
             value={this.props.employee.lastName}
             onChange={e => this.onFieldChange({...e, field: 'lastName'})} />
+          <ErrorFeedback error={this.findError('lastName')}/>
         </Form.Group>
 
         <Form.Group controlId="txtDateOfBirth">
@@ -44,6 +44,7 @@ class EmployeeDetails extends React.Component {
           <DatePicker
             onDateSelected={e => this.onFieldChange({...e, field: 'dateOfBirth'})}
             selectedDate={this.props.employee.dateOfBirth}/>
+          <ErrorFeedback error={this.findError('dateOfBirth')}/>
         </Form.Group>
 
         <Form.Group controlId="txtHireDate">
@@ -51,6 +52,7 @@ class EmployeeDetails extends React.Component {
           <DatePicker
             onDateSelected={e => this.onFieldChange({...e, field: 'hireDate'})}
             selectedDate={this.props.employee.hireDate} />
+          <ErrorFeedback error={this.findError('hireDate')}/>
         </Form.Group>
 
         <Form.Group controlId="txtEmail">
@@ -59,6 +61,7 @@ class EmployeeDetails extends React.Component {
             type="email"
             value={this.props.employee.email}
             onChange={e => this.onFieldChange({...e, field: 'email'})} />
+          <ErrorFeedback error={this.findError('email')}/>
         </Form.Group>
 
         <ButtonToolbar>
