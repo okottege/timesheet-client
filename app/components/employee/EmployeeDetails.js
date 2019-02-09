@@ -17,6 +17,7 @@ class EmployeeDetails extends React.Component {
   };
 
   findError = fld => this.props.errors.find(e => e.field === fld);
+  hasError = fld => this.findError(fld) !== undefined;
 
   render() {
     return (
@@ -26,6 +27,7 @@ class EmployeeDetails extends React.Component {
           <Form.Control
             type="text"
             value={this.props.employee.firstName}
+            isInvalid={this.hasError('firstName')}
             onChange={e => this.onFieldChange({...e, field: 'firstName'})} />
           <ErrorFeedback error={this.findError('firstName')}/>
         </Form.Group>
@@ -35,6 +37,7 @@ class EmployeeDetails extends React.Component {
           <Form.Control
             type="text"
             value={this.props.employee.lastName}
+            isInvalid={this.hasError('lastName')}
             onChange={e => this.onFieldChange({...e, field: 'lastName'})} />
           <ErrorFeedback error={this.findError('lastName')}/>
         </Form.Group>
@@ -60,6 +63,7 @@ class EmployeeDetails extends React.Component {
           <Form.Control
             type="email"
             value={this.props.employee.email}
+            isInvalid={this.hasError('email')}
             onChange={e => this.onFieldChange({...e, field: 'email'})} />
           <ErrorFeedback error={this.findError('email')}/>
         </Form.Group>
