@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {Form} from "react-bootstrap";
+import {Form, Alert} from "react-bootstrap";
 
 import EmployeeDetails from "../EmployeeDetails";
 import ErrorFeedback from '../../ErrorFeedback';
@@ -39,5 +39,14 @@ describe('Employee Details component displaying errors', () => {
       const employeeDetails = shallow(<EmployeeDetails />);
       expect(employeeDetails.find(Form.Control).find({isInvalid: true}).length).toBe(0);
     })
-  })
+  });
+
+  test('when there are errors, a top-level error message is displayed', () => {
+    const employeeDetails = shallow(<EmployeeDetails errors={[{field: 'firstName', message: 'error!'}]}/>);
+    expect(employeeDetails.find(Alert).find({variant: 'danger'}).exists()).toBe(true);
+  });
+  test('when there are no errors, then no top-level error message is displayd', () => {
+    const employeeDetails = shallow(<EmployeeDetails/>);
+    expect(employeeDetails.find(Alert).find({variant:'danger'}).exists()).toBe(false);
+  });
 });
