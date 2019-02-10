@@ -22,7 +22,8 @@
     "test": "jest --verbose",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open",
+    "build": "webpack --config webpack.config.prod.js"
   },
   "keywords": [],
   "author": "",
@@ -43,6 +44,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^1.0.1",
     "css-loader": "^2.1.0",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
@@ -53,6 +55,7 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.1.14",
+    "webpack-merge": "^4.2.1"
   }
 }
