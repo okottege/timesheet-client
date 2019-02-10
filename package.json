@@ -16,12 +16,22 @@
     "setupTestFrameworkScriptFile": "<rootDir>/app/jest.setup.js",
     "testPathIgnorePatterns": [
       "<rootDir>/app/jest.setup/js"
-    ]
+    ],
+    "reporters": [ "default", "jest-junit" ]
+  },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "output": "test/junit.xml",
+    "classNameTemplate": "{classname} - {title}",
+    "titleTemplate": "{classname} - {title}",
+    "ancestorSeparator": " > ",
+    "usePathForSuiteName": "true"
   },
   "scripts": {
     "test": "jest --verbose",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
+    "test:ci": "jest --ci --reporters=default --reporters=jest-junit --coverage",
     "start": "webpack-dev-server --open",
     "build": "webpack --config webpack.config.prod.js"
   },
@@ -50,6 +60,7 @@
     "enzyme-adapter-react-16": "^1.7.1",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^23.6.0",
+    "jest-junit": "^6.2.1",
     "react-test-renderer": "^16.7.0",
     "regenerator-runtime": "^0.13.1",
     "style-loader": "^0.23.1",
