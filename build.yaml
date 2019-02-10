@@ -1,0 +1,43 @@
+resources:
+  - repo: self
+
+pool:
+  vmImage: Hosted Ubuntu 1604
+  demands: npm
+
+steps:
+  - task: Npm@1
+    displayName: 'Restore packages'
+    inputs:
+      verbose: false
+
+  - task: Npm@1
+    displayName: 'Run Tests'
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: 'run test:ci'
+
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testResultsFiles: test/junit.xml
+
+  - task: Npm@1
+    displayName: Build
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: 'run build'
+
+  - task: PublishPipelineArtifact@0
+    displayName: 'Publish Pipeline Artifact'
+    inputs:
+      artifactName: artifacts
+      targetPath: dist
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
