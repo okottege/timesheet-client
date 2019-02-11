@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {Alert} from 'react-bootstrap';
 
 import './index.css';
-import DatePicker from './components/DatePicker';
 import EmployeeForm from './components/employee/EmployeeForm';
 
 class App extends React.Component {
