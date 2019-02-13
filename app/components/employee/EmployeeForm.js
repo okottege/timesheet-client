@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EmployeeDetails from './EmployeeDetails';
 
-const validateEmployee = e => {
+const getValidationErrors = e => {
   const errors = [];
   if(!e.firstName) errors.push({field: 'firstName', message: 'First name is required.'});
   if(!e.lastName) errors.push({field: 'lastName', message: 'Last name is required.'});
@@ -27,7 +27,11 @@ class EmployeeForm extends React.Component {
   };
 
   onEmployeeDetailsSubmit = () => {
-    var errors = validateEmployee(this.state.employee);
+    this.validateEmployee(this.state.employee)
+  };
+
+  validateEmployee = e => {
+    const errors = getValidationErrors(e);
     this.setState(s => ({...s, errors }));
   };
 
