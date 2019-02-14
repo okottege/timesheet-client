@@ -16,18 +16,23 @@ const getValidationErrors = e => {
 class EmployeeForm extends React.Component {
   state = {
     employee: {},
-    errors: []
+    errors: [],
+    validateFields: false
   };
 
   onEmployeeDetailsChanged = e => {
     const {field, value} = e;
-    this.setState(prevState => (
-      {employee: {...prevState.employee, [field]: value}})
+    this.setState(
+      prevState => ({employee: {...prevState.employee, [field]: value}}),
+      () => {
+        if(this.state.validateFields) this.validateEmployee(this.state.employee);
+      }
     );
   };
 
   onEmployeeDetailsSubmit = () => {
-    this.validateEmployee(this.state.employee)
+    this.validateEmployee(this.state.employee);
+    this.setState(s => ({...s, validateFields: true}));
   };
 
   validateEmployee = e => {
