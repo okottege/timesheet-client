@@ -17,7 +17,9 @@ class EmployeeDetails extends React.Component {
   };
 
   findError = fld => this.props.errors.find(e => e.field === fld);
+
   hasError = fld => this.findError(fld) !== undefined;
+
   renderErrorSummary = () => this.props.errors.length > 0
     ? <Alert variant="danger">There are some validation errors, please correct them before continuing.</Alert>
     : null;
@@ -97,7 +99,6 @@ EmployeeDetails.propTypes = {
     hireDate: PropTypes.instanceOf(Date),
     email: PropTypes.string
   }),
-  mode: PropTypes.oneOf(['Create', 'Update']),
   errors: PropTypes.arrayOf(PropTypes.shape({
     field: PropTypes.string,
     message: PropTypes.string
@@ -108,9 +109,11 @@ EmployeeDetails.propTypes = {
 };
 
 EmployeeDetails.defaultProps = {
-  mode: 'Create',
   employee: {},
-  errors: []
+  errors: [],
+  onDetailsChanged: () => {},
+  onSubmit: () => {},
+  onCancel: () => {}
 };
 
 export default EmployeeDetails;

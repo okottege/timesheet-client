@@ -1,4 +1,4 @@
-import {populateArrayWithSequence} from '../arrayHelpers';
+import populateArrayWithSequence from '../arrayHelpers';
 
 describe('Populate Array With Sequence should', () => {
   test.each([0, 1, 100])('handle %i as number of elements', (numItems) => {

@@ -17,6 +17,7 @@
         ]
       }
     ],
+    "react/destructuring-assignment": "off",
     "react/prop-types": 0,
     "no-underscore-dangle": 0,
     "import/imports-first": [
@@ -24,6 +25,9 @@
       "absolute-first"
     ],
     "import/newline-after-import": "error"
+  },
+  "env": {
+    "jest": true
   },
   "globals": {
     "window": true,

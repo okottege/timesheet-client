@@ -49,7 +49,7 @@ describe('DatePicker should', () => {
   });
 
   describe('update selected date based on interactions', () => {
-    let date, onDateSelected, datePicker;
+    let date; let onDateSelected; let datePicker;
 
     beforeEach(() => {
       date = new Date(2012, 1, 27);

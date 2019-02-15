@@ -19,7 +19,7 @@ describe('Employee Details component should', () => {
         ['text', 'txtLastName', 'Last name'],
         ['email', 'txtEmail', 'Email address'],
       ])('input field of type: %p with id %p and label: %p exists', (type, controlId, labelText) => {
-        const fld = employeeDetails.find({controlId: controlId});
+        const fld = employeeDetails.find({controlId});
         const lbl = fld.find(Form.Label);
         const formCtrl = fld.find(Form.Control);
 
@@ -33,7 +33,7 @@ describe('Employee Details component should', () => {
         ['txtDateOfBirth', 'Date of birth'],
         ['txtHireDate', 'Hire date'],
       ])('date picker field with id %p and label: %p exists', (controlId, labelText) => {
-        const fld = employeeDetails.find({controlId: controlId});
+        const fld = employeeDetails.find({controlId});
         const lbl = fld.find(Form.Label);
 
         expect(fld.find(DatePicker).exists()).toBe(true);
@@ -49,12 +49,8 @@ describe('Employee Details component should', () => {
   });
 
   describe('have the default props', () => {
-    const employeeDetails = mount(<EmployeeDetails/>);
-
-    test("the 'mode' prop should default to 'Create'", () => {
-      expect(employeeDetails.prop('mode')).toBe('Create');
-    });
     test("the 'employee' prop should be an empty object", () => {
+      const employeeDetails = mount(<EmployeeDetails/>);
       expect(employeeDetails.prop('employee')).toEqual({});
     });
   });

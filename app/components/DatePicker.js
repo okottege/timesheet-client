@@ -22,6 +22,8 @@ class DatePicker extends React.Component {
       case 'year':
         changedDate = new Date(value, selectedDate.getMonth(), selectedDate.getDate());
         break;
+      default:
+        break;
     }
     this.props.onDateSelected({target: {value: changedDate}});
   };
@@ -59,15 +61,15 @@ DatePicker.propTypes = {
   onDateSelected: PropTypes.func.isRequired,
   title: PropTypes.string,
   selectedDate: PropTypes.instanceOf(Date),
-  dateRequired: PropTypes.bool,
-  defaultToCurrentDate: PropTypes.bool,
   minYear: PropTypes.number,
   numberOfYears: PropTypes.number
 };
 
 DatePicker.defaultProps = {
   minYear: 1920,
-  numberOfYears: 100
+  numberOfYears: 100,
+  title: '',
+  selectedDate: new Date(),
 };
 
 export default DatePicker;

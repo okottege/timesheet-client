@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DropdownList from "./common/DropdownList";
-import {populateArrayWithSequence} from './common/utils/arrayHelpers';
+import populateArrayWithSequence from './common/utils/arrayHelpers';
 
 class YearDropdown extends React.Component {
   onYearSelected = year => {

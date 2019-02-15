@@ -14,7 +14,7 @@ describe('ErrorFeedback component should', () => {
     expect(feedback.at(0).childAt(0).text()).toEqual('error msg');
   });
   test.each([
-    undefined, {}, {message: ''}
+    {}, {message: ''}
   ])('not render Feedback component if error prop is %p', error => {
     const errFeedback = shallow(<ErrorFeedback error={error}/>);
     expect(errFeedback.find(Form.Control.Feedback).exists()).toBe(false);

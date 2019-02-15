@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import randomString from 'randomstring';
 
-import {DropdownButton, Dropdown, ButtonGroup} from "react-bootstrap";
+import {DropdownButton, Dropdown} from "react-bootstrap";
 import Styles from '../styles/general';
 
 const DEFAULT_SELECTED_VALUE = 'Select...';
@@ -15,7 +15,7 @@ class DropdownList extends React.Component {
     ));
 
   onItemSelected = eventKey => {
-    if(this.props.onItemSelected) this.props.onItemSelected(eventKey);
+    this.props.onItemSelected(eventKey);
   };
 
   getItemNameByValue = (items, selectedItemValue) => {
@@ -23,8 +23,7 @@ class DropdownList extends React.Component {
     return item ? item.name : DEFAULT_SELECTED_VALUE;
   };
 
-  getControlId = (id) =>
-    !id ? randomString.generate({length: 10, charset: 'alphabetic'}) : id;
+  getControlId = () => randomString.generate({length: 10, charset: 'alphabetic'});
 
   render() {
     return (
@@ -51,7 +50,9 @@ DropdownList.propTypes = {
 
 DropdownList.defaultProps = {
   selectedItem: DEFAULT_SELECTED_VALUE,
-  items: []
+  items: [],
+  id: 'ddl',
+  onItemSelected: () => {}
 };
 
 export default DropdownList;
