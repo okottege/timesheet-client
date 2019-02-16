@@ -50,11 +50,15 @@ describe('Employee Details user interactions', () => {
       employeeDetails.find(Form).prop('onSubmit')({preventDefault});
       expect(preventDefault).toHaveBeenCalled();
     });
-    test('if args is undefined, then "onSubmit" is not called', () => {
+
+    test.each([
+      undefined, {}
+    ])('if args is %p, then "preventDefault" is not called', args => {
       onSubmit.mockClear();
       preventDefault.mockClear();
-      employeeDetails.find(Form).prop('onSubmit')();
-      expect(onSubmit).not.toHaveBeenCalled();
+      employeeDetails.find(Form).prop('onSubmit')(args);
+      expect(onSubmit).toHaveBeenCalled();
+      expect(preventDefault).not.toHaveBeenCalled();
     });
   });
 
