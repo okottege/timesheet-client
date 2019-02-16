@@ -26,7 +26,7 @@ describe('Employee Details user interactions', () => {
     const employeeDetails = shallow(<EmployeeDetails employee={employee} onDetailsChanged={onDetailsChanged}/>);
     invokeChangedHandler(employeeDetails, ctrlId, fldType, handlerName, value);
 
-    expect(onDetailsChanged).toHaveBeenCalledWith({field: fldName, value: value});
+    expect(onDetailsChanged).toHaveBeenCalledWith({field: fldName, value});
   });
 
   test('The field change handler is not invoked if it is NOT supplied', () => {
@@ -41,14 +41,21 @@ describe('Employee Details user interactions', () => {
     const onSubmit = jest.fn();
     const preventDefault = jest.fn();
     const employeeDetails = shallow(<EmployeeDetails onSubmit={onSubmit} />);
-    employeeDetails.find(Form).prop('onSubmit')({preventDefault});
 
     test('the "onSubmit" handler is invoked', () => {
+      employeeDetails.find(Form).prop('onSubmit')({preventDefault});
       expect(onSubmit).toHaveBeenCalled();
     });
     test('the "preventDefault" of args has been called', () => {
+      employeeDetails.find(Form).prop('onSubmit')({preventDefault});
       expect(preventDefault).toHaveBeenCalled();
-    })
+    });
+    test('if args is undefined, then "onSubmit" is not called', () => {
+      onSubmit.mockClear();
+      preventDefault.mockClear();
+      employeeDetails.find(Form).prop('onSubmit')();
+      expect(onSubmit).not.toHaveBeenCalled();
+    });
   });
 
   test('the onSubmit handler is ONLY invoked if it is supplied when the form is submitted', () => {

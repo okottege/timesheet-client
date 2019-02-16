@@ -4,9 +4,7 @@ import DropdownList from "./common/DropdownList";
 import populateArrayWithSequence from "./common/utils/arrayHelpers";
 
 class DateDropdown extends React.Component {
-  onDateSelected = date => {
-    if(this.props.onDateSelected) this.props.onDateSelected(Number(date));
-  };
+  onDateSelected = date => this.props.onDateSelected(Number(date));
 
   getDaysForMonth = (year, monthIndex) => {
     const date = new Date(year, monthIndex + 1, 0);
@@ -15,14 +13,10 @@ class DateDropdown extends React.Component {
   };
 
   render() {
-    const selectedDate = this.props.selectedDate
-      ? this.props.selectedDate.toString()
-      : undefined;
-
     return (
       <DropdownList
         items={this.getDaysForMonth(this.props.year, this.props.monthIndex)}
-        selectedItem={selectedDate}
+        selectedItem={this.props.selectedDate.toString()}
         onItemSelected={this.onDateSelected}/>
     );
   }
@@ -33,6 +27,11 @@ DateDropdown.propTypes = {
   year: PropTypes.number.isRequired,
   selectedDate: PropTypes.number,
   onDateSelected: PropTypes.func
+};
+
+DateDropdown.defaultProps = {
+  selectedDate: new Date().getDate(),
+  onDateSelected: () => {}
 };
 
 export default DateDropdown;

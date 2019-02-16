@@ -7,10 +7,8 @@ import MonthDropdown from './MonthDropdown';
 import YearDropdown from './YearDropdown';
 
 class DatePicker extends React.Component {
-  getSelectedDate = () => !this.props.selectedDate ? new Date() : this.props.selectedDate;
-
   notifyDateChanged  = (type, value) => {
-    const selectedDate = this.getSelectedDate();
+    const {selectedDate} = this.props;
     let changedDate;
     switch(type) {
       case 'date':
@@ -19,17 +17,15 @@ class DatePicker extends React.Component {
       case 'month':
         changedDate = new Date(selectedDate.getFullYear(), value, selectedDate.getDate());
         break;
-      case 'year':
-        changedDate = new Date(value, selectedDate.getMonth(), selectedDate.getDate());
-        break;
       default:
+        changedDate = new Date(value, selectedDate.getMonth(), selectedDate.getDate());
         break;
     }
     this.props.onDateSelected({target: {value: changedDate}});
   };
 
   render() {
-    const selectedDate = this.getSelectedDate();
+    const {selectedDate} = this.props;
     return (
       <div>
         {!!this.props.title &&

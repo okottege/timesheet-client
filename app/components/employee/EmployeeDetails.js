@@ -7,13 +7,13 @@ import Styles from '../styles/general';
 import ErrorFeedback from '../ErrorFeedback';
 
 class EmployeeDetails extends React.Component {
-  onFieldChange = e => {
-    if(this.props.onDetailsChanged) this.props.onDetailsChanged({field: e.field, value: e.target.value});
-  };
+  onFieldChange = e => this.props.onDetailsChanged({field: e.field, value: e.target.value});
 
   onFormSubmit = e => {
-    if(e) e.preventDefault();
-    if(this.props.onSubmit) this.props.onSubmit();
+    if(e) {
+      e.preventDefault();
+      this.props.onSubmit();
+    }
   };
 
   findError = fld => this.props.errors.find(e => e.field === fld);

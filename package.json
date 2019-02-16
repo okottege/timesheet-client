@@ -4,7 +4,9 @@
   "description": "",
   "main": "app/index.js",
   "standard": {
-    "env": ["jest"]
+    "env": [
+      "jest"
+    ]
   },
   "babel": {
     "presets": [

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import EmployeeDetails from './EmployeeDetails';
 
 const getValidationErrors = e => {
@@ -50,9 +49,5 @@ class EmployeeForm extends React.Component {
     );
   }
 }
-
-EmployeeForm.propTypes = {
-  employeeId: PropTypes.number
-};
 
 export default EmployeeForm;

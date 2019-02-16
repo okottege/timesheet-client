@@ -22,15 +22,14 @@ class MonthDropdown extends React.Component {
     ]
   };
 
-  onMonthSelected = monthIndex => {
-    if(this.props.onMonthSelected) this.props.onMonthSelected(Number(monthIndex));
-  };
+  onMonthSelected = monthIndex => this.props.onMonthSelected(Number(monthIndex));
 
   render() {
-    const selectedMonth =
-      this.props.selectedMonth !== undefined ? this.props.selectedMonth.toString() : undefined;
     return (
-      <DropdownList items={this.state.months} selectedItem={selectedMonth} onItemSelected={this.onMonthSelected}/>
+      <DropdownList
+        items={this.state.months}
+        selectedItem={this.props.selectedMonth.toString()}
+        onItemSelected={this.onMonthSelected}/>
     );
   }
 }
@@ -38,6 +37,11 @@ class MonthDropdown extends React.Component {
 MonthDropdown.propTypes = {
   selectedMonth: PropTypes.number,
   onMonthSelected: PropTypes.func
+};
+
+MonthDropdown.defaultProps = {
+  selectedMonth: new Date().getMonth(),
+  onMonthSelected: () => {}
 };
 
 export default MonthDropdown;
