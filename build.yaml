@@ -12,7 +12,7 @@ steps:
       verbose: false
 
   - task: Npm@1
-    displayName: 'Run Linting'
+    displayName: 'Run ESLint'
     inputs:
       command: custom
       verbose: false
