@@ -1,7 +1,7 @@
 {
   "name": "timesheet-client",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Timesheeting client application",
   "main": "app/index.js",
   "standard": {
     "env": [
@@ -24,6 +24,7 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/app/jest.setup.js",
+    "collectCoverageFrom": ["app/components/**.{js,jsx}"],
     "testPathIgnorePatterns": [
       "<rootDir>/app/jest.setup/js"
     ],
@@ -51,7 +52,7 @@
     "build": "webpack --config webpack.config.prod.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Oshan Lasanga Kottege",
   "license": "ISC",
   "dependencies": {
     "prop-types": "^15.6.2",
