@@ -3,7 +3,7 @@ import {mount, shallow} from 'enzyme';
 import {Form, Button} from "react-bootstrap";
 
 import EmployeeDetails from '../EmployeeDetails';
-import DatePicker from "../../DatePicker";
+import DatePicker from '../../DatePicker';
 
 describe('Employee Details component should', () => {
   describe('render the correct fields', () => {
@@ -70,7 +70,7 @@ describe('Employee Details component should', () => {
       ['txtLastName', employee.lastName],
       ['txtEmail', employee.email]
     ])('the text field %p is populated with %p', (textFieldId, expectedValue) => {
-      const fld = employeeDetails.find({controlId: textFieldId}).find(Form.Control);
+      const fld = employeeDetails.find({fieldId: textFieldId});
       expect(fld.prop('value')).toBe(expectedValue);
     });
 

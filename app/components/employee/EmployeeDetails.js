@@ -5,6 +5,7 @@ import {Form, ButtonToolbar, Button, Alert} from "react-bootstrap";
 import DatePicker from '../DatePicker';
 import Styles from '../styles/general';
 import ErrorFeedback from '../ErrorFeedback';
+import FormTextInput from '../common/FormTextInput';
 
 class EmployeeDetails extends React.Component {
   onFieldChange = e => this.props.onDetailsChanged({field: e.field, value: e.target.value});
@@ -16,7 +17,10 @@ class EmployeeDetails extends React.Component {
 
   findError = fld => this.props.errors.find(e => e.field === fld);
 
-  hasError = fld => this.findError(fld) !== undefined;
+  getErrorText = fld => {
+    const error = this.findError(fld);
+    return error ? error.message : '';
+  };
 
   renderErrorSummary = () => this.props.errors.length > 0
     ? <Alert variant="danger">There are some validation errors, please correct them before continuing.</Alert>
@@ -28,25 +32,21 @@ class EmployeeDetails extends React.Component {
         {this.renderErrorSummary()}
 
         <Form onSubmit={this.onFormSubmit}>
-          <Form.Group controlId="txtFirstName">
-            <Form.Label>First name</Form.Label>
-            <Form.Control
-              type="text"
-              value={this.props.employee.firstName}
-              isInvalid={this.hasError('firstName')}
-              onChange={e => this.onFieldChange({...e, field: 'firstName'})} />
-            <ErrorFeedback error={this.findError('firstName')}/>
-          </Form.Group>
+          <FormTextInput
+            fieldName="firstName"
+            onInputChanged={e => this.onFieldChange({...e, field: 'firstName'})}
+            fieldId="txtFirstName"
+            labelText="First name"
+            value={this.props.employee.firstName}
+            errorText={this.getErrorText('firstName')} />
 
-          <Form.Group controlId="txtLastName">
-            <Form.Label>Last name</Form.Label>
-            <Form.Control
-              type="text"
-              value={this.props.employee.lastName}
-              isInvalid={this.hasError('lastName')}
-              onChange={e => this.onFieldChange({...e, field: 'lastName'})} />
-            <ErrorFeedback error={this.findError('lastName')}/>
-          </Form.Group>
+          <FormTextInput
+            fieldName="lastName"
+            onInputChanged={e => this.onFieldChange({...e, field: 'lastName'})}
+            fieldId="txtLastName"
+            labelText="Last name"
+            value={this.props.employee.lastName}
+            errorText={this.getErrorText('lastName')} />
 
           <Form.Group controlId="txtDateOfBirth">
             <Form.Label>Date of birth</Form.Label>
@@ -64,15 +64,14 @@ class EmployeeDetails extends React.Component {
             <ErrorFeedback error={this.findError('hireDate')}/>
           </Form.Group>
 
-          <Form.Group controlId="txtEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              type="email"
-              value={this.props.employee.email}
-              isInvalid={this.hasError('email')}
-              onChange={e => this.onFieldChange({...e, field: 'email'})} />
-            <ErrorFeedback error={this.findError('email')}/>
-          </Form.Group>
+          <FormTextInput
+            fieldName="email"
+            onInputChanged={e => this.onFieldChange({...e, field: 'email'})}
+            inputType="email"
+            fieldId="txtEmail"
+            labelText="Email address"
+            value={this.props.employee.email}
+            errorText={this.getErrorText('email')} />
 
           <ButtonToolbar>
             <div style={Styles.buttonSpacing}>

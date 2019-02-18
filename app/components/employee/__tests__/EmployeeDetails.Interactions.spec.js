@@ -5,9 +5,9 @@ import {Form} from 'react-bootstrap';
 import EmployeeDetails from '../EmployeeDetails';
 import DatePicker from '../../DatePicker';
 
-const invokeChangedHandler = (component, controlId, fieldType, handlerPropName, handlerArgValue) => {
-  const fld = component.find({controlId}).find(fieldType);
-  fld.prop(handlerPropName)({target: {value: handlerArgValue}});
+const invokeChangedHandler = (component, controlId, field, handlerArgValue) => {
+  const fld = component.find({fieldId: controlId});
+  fld.prop('onInputChanged')({target: {value: handlerArgValue}, field });
 };
 
 describe('Employee Details user interactions', () => {
@@ -16,25 +16,25 @@ describe('Employee Details user interactions', () => {
     hireDate: new Date('2011-11-10'), email: 'b.a@hotmail.com'};
 
   test.each([
-    ['txtFirstName', 'onChange', Form.Control, 'firstName', 'New-Brian'],
-    ['txtLastName', 'onChange', Form.Control, 'lastName', 'new-Adams'],
-    ['txtDateOfBirth', 'onDateSelected', DatePicker, 'dateOfBirth', new Date('2019-05-04')],
-    ['txtHireDate', 'onDateSelected', DatePicker, 'hireDate', new Date('2013-10-15')],
-    ['txtEmail', 'onChange', Form.Control, 'email', 'abc.xyz@gmail.com'],
-  ])('when field %p changes, %p handler is invoked with args', (ctrlId, handlerName, fldType, fldName, value) => {
+    ['txtFirstName', 'firstName', 'New-Brian'],
+    ['txtLastName', 'lastName', 'new-Adams'],
+    ['txtEmail', 'email', 'abc.xyz@gmail.com'],
+  ])('when text field %p changes, "onInputChanged" handler is invoked with args', (ctrlId, fldName, value) => {
     const onDetailsChanged = jest.fn();
     const employeeDetails = shallow(<EmployeeDetails employee={employee} onDetailsChanged={onDetailsChanged}/>);
-    invokeChangedHandler(employeeDetails, ctrlId, fldType, handlerName, value);
+    invokeChangedHandler(employeeDetails, ctrlId, fldName, value);
 
     expect(onDetailsChanged).toHaveBeenCalledWith({field: fldName, value});
   });
 
-  test('The field change handler is not invoked if it is NOT supplied', () => {
+  test.each([
+    ['txtDateOfBirth', 'dateOfBirth', new Date('2019-05-04')],
+    ['txtHireDate', 'hireDate', new Date('2013-10-15')]
+  ])('when date field %p changes, "onDateSelected" handler is invoked with args', (ctrlId, fldName, value) => {
     const onDetailsChanged = jest.fn();
-    const employeeDetails = shallow(<EmployeeDetails/>);
-    employeeDetails.find({controlId: 'txtFirstName'}).find(Form.Control).prop('onChange')({target: {value: 'test'}});
-
-    expect(onDetailsChanged).not.toHaveBeenCalled();
+    const employeeDetails = shallow(<EmployeeDetails employee={employee} onDetailsChanged={onDetailsChanged}/>);
+    employeeDetails.find({controlId: ctrlId}).find(DatePicker).prop('onDateSelected')({target: {value}, field: fldName });
+    expect(onDetailsChanged).toHaveBeenCalledWith({field: fldName, value});
   });
 
   describe('when the underlying form is submitted', () => {

@@ -24,7 +24,9 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/app/jest.setup.js",
-    "collectCoverageFrom": ["app/components/**.{js,jsx}"],
+    "collectCoverageFrom": [
+      "app/components/**.{js,jsx}"
+    ],
     "testPathIgnorePatterns": [
       "<rootDir>/app/jest.setup/js"
     ],
