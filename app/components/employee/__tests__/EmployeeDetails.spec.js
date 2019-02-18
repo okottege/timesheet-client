@@ -18,13 +18,12 @@ describe('Employee Details component should', () => {
         ['text', 'txtFirstName', 'First name'],
         ['text', 'txtLastName', 'Last name'],
         ['email', 'txtEmail', 'Email address'],
-      ])('input field of type: %p with id %p and label: %p exists', (type, controlId, labelText) => {
-        const fld = employeeDetails.find({controlId});
-        const lbl = fld.find(Form.Label);
-        const formCtrl = fld.find(Form.Control);
+      ])('input field of type: %p with id %p and label: %p exists', (type, fieldId, labelText) => {
+        const fld = employeeDetails.find({fieldId});
 
-        expect(formCtrl.prop('type')).toBe(type);
-        expect(lbl.at(0).text()).toBe(labelText);
+        expect(fld.prop('inputType')).toBe(type);
+        expect(fld.prop('fieldId')).toBe(fieldId);
+        expect(fld.prop('labelText')).toBe(labelText);
       });
     });
 
