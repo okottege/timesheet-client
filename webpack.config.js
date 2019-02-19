@@ -21,5 +21,8 @@ module.exports = {
       template: 'app/index.html'
     })
   ],
+  devServer: {
+    historyApiFallback: true
+  },
   devtool: "source-map"
 };
