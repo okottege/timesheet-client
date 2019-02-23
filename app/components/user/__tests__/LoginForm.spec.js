@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import {Form, Button} from 'react-bootstrap';
+import {Form, Button, Alert} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 
 import LoginForm from '../LoginForm';
@@ -47,14 +47,24 @@ describe('Login form should', () => {
   });
 
   describe('submit the form correctly', () => {
+    const loginForm = shallow(<LoginForm/>);
+
+    test.each([
+      ['Username', 'txtUsername'],
+      ['Password', 'txtPassword'],
+    ])('field %p is required', (fieldName, fieldId) => {
+      loginForm.find(Form).prop('onSubmit')({preventDefault: jest.fn()});
+      expect(loginForm.find({fieldId}).prop('errorText')).toBe(`${fieldName} is required`);
+      expect(loginForm.find(Alert).at(0).text()).toBe('There was a problem with Login');
+    });
+
     test('on successful login, user is redirected to home page', () => {
-      const loginForm = shallow(<LoginForm/>);
       loginForm.find({fieldId: 'txtUsername'})
         .prop('onInputChanged')(getInputChangedArgs('username', 'usr-name'));
       loginForm.find({fieldId: 'txtPassword'})
         .prop('onInputChanged')(getInputChangedArgs('password', 'pass@word01'));
 
-      loginForm.find(Form).prop('onSubmit')();
+      loginForm.find(Form).prop('onSubmit')({preventDefault: jest.fn()});
 
       expect(loginForm.find(Redirect).exists()).toBe(true);
       expect(loginForm.find(Redirect).prop('to')).toBe('/');
