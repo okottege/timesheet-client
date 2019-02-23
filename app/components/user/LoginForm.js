@@ -1,12 +1,14 @@
 import React from 'react';
 import {Button, ButtonToolbar, Form, Card} from 'react-bootstrap';
+import {Redirect} from 'react-router-dom';
 
 import FormTextInput from '../common/FormTextInput';
 
 class LoginForm extends React.Component {
   state = {
     username: '',
-    password: ''
+    password: '',
+    redirectToHome: false
   };
 
   onInputChanged = e => {
@@ -14,13 +16,17 @@ class LoginForm extends React.Component {
     this.setState(prevState => ({...prevState, [field]: e.target.value}));
   };
 
-  render() {
+  onLogin = () => {
+    this.setState(prevState => ({...prevState, redirectToHome: true}));
+  };
+
+  renderLoginForm = () => {
     return (
       <Card>
         <Card.Header>Login to Timesheets</Card.Header>
         <Card.Body>
           <Card.Title>Enter your username and password</Card.Title>
-          <Form>
+          <Form onSubmit={this.onLogin}>
             <FormTextInput
               fieldId="txtUsername"
               fieldName="username"
@@ -43,6 +49,12 @@ class LoginForm extends React.Component {
         <Card.Footer>Forgotten your password?  Use the password recovery.</Card.Footer>
       </Card>
     );
+  };
+
+  render() {
+    if(this.state.redirectToHome) return <Redirect to="/" />;
+
+    return this.renderLoginForm();
   }
 }
 

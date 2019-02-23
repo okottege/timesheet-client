@@ -1,11 +1,15 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import {Form, Button} from 'react-bootstrap';
+import {Redirect} from 'react-router-dom';
 
 import LoginForm from '../LoginForm';
 import FormTextInput from '../../common/FormTextInput';
 
 describe('Login form should', () => {
+
+  const getInputChangedArgs = (field, value) => ({target: {value}, field});
+
   describe('render correctly with', () => {
     const loginForm = shallow(<LoginForm/>);
 
@@ -16,11 +20,11 @@ describe('Login form should', () => {
       ['txtUsername', 'text', 'username', 'Username'],
       ['txtPassword', 'password', 'password', 'Password'],
     ])('a %p field', (fieldId, inputType, fieldName, labelText) => {
-      const txtUsername = loginForm.find(FormTextInput).find({fieldId});
-      expect(txtUsername.exists()).toBe(true);
-      expect(txtUsername.prop('inputType')).toBe(inputType);
-      expect(txtUsername.prop('fieldName')).toBe(fieldName);
-      expect(txtUsername.prop('labelText')).toBe(labelText);
+      const txtField = loginForm.find(FormTextInput).find({fieldId});
+      expect(txtField.exists()).toBe(true);
+      expect(txtField.prop('inputType')).toBe(inputType);
+      expect(txtField.prop('fieldName')).toBe(fieldName);
+      expect(txtField.prop('labelText')).toBe(labelText);
     });
     test('a submit button with text "Login"', () => {
       const loginButton = loginForm.find(Button);
@@ -37,8 +41,23 @@ describe('Login form should', () => {
       ['password', 'txtPassword', 'pass@word01']
     ])('when %p field changes, its value is updated correctly', (field, fieldId, expValue) => {
       const loginForm = shallow(<LoginForm />);
-      loginForm.find({fieldId}).prop('onInputChanged')({target: {value: expValue}, field});
+      loginForm.find({fieldId}).prop('onInputChanged')(getInputChangedArgs(field, expValue));
       expect(loginForm.find({fieldId}).prop('value')).toBe(expValue);
+    });
+  });
+
+  describe('submit the form correctly', () => {
+    test('on successful login, user is redirected to home page', () => {
+      const loginForm = shallow(<LoginForm/>);
+      loginForm.find({fieldId: 'txtUsername'})
+        .prop('onInputChanged')(getInputChangedArgs('username', 'usr-name'));
+      loginForm.find({fieldId: 'txtPassword'})
+        .prop('onInputChanged')(getInputChangedArgs('password', 'pass@word01'));
+
+      loginForm.find(Form).prop('onSubmit')();
+
+      expect(loginForm.find(Redirect).exists()).toBe(true);
+      expect(loginForm.find(Redirect).prop('to')).toBe('/');
     });
   });
 });
