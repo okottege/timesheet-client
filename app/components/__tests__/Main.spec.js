@@ -6,13 +6,15 @@ import Home from '../Home';
 import About from '../About';
 import App from '../../App';
 import NotFound from '../NotFound';
+import LoginForm from '../user/LoginForm';
 
-describe('Main component should', () => {
+describe('Main component should render the correct component when', () => {
   test.each([
     ['/', Home],
     ['/about', About],
+    ['/login', LoginForm],
     ['/random-route', NotFound]
-  ])('render correct component when route is %p', (route, component) => {
+  ])('route is %p', (route, component) => {
     const app = mount(
       <MemoryRouter initialEntries={[route]}>
         <App />
